@@ -1,0 +1,88 @@
+<?php
+
+use Core\Config\Config;
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title><?= $title ?></title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- icons -->
+    <link rel="icon" href="<?= asset('images/icons/bps-32x32.png') ?>" sizes="32x32" type="image/png">
+    <link rel="icon" href="<?= asset('images/icons/bps-16x16.png') ?>" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="<?= asset('images/icons/bps.ico') ?>">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<?= asset('css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= asset('css/sweetalert2.min.css') ?>">
+
+    <?php if (!empty($assets['css'])) {
+        foreach ($assets['css'] as $css) {
+            echo '<link rel="stylesheet" href="' . asset($css) . '">';
+        }
+    } ?>
+
+    <!-- custom style -->
+    <link rel="stylesheet" href="<?= asset('css/main.css') ?>">
+
+    <?php if (!empty($assets['style'])) : ?>
+        <style>
+            <?= $assets['style'] ?>
+        </style>
+    <?php endif; ?>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <?= $this->fetch('partial/header' . app()->config('application.view.file_extension')) ?>
+        </header>
+
+        <main role="main" class="py-5">
+
+            <?= $content ?>
+
+        </main>
+
+        <footer class="footer text-center border-top border-primary py-2">
+            <div class="container">
+                <span class="text-dark"><?= app()->config('application.name') ?> versi <?= app()->config('application.version') ?> &copy; 2021 - <?= app()->config('application.vendor') ?></span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<?= asset('js/jquery.min.js') ?>"></script>
+    <script src="<?= asset('js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= asset('js/sweetalert2.min.js') ?>"></script>
+
+    <?php if (!empty($assets['js'])) {
+        foreach ($assets['js'] as $js) {
+            echo '<script src="' . asset($js) . '"></script>' . PHP_EOL;
+        }
+    } ?>
+
+
+    <script>
+        $(document).ready(function() {
+            <?php if (app()->session()->hasFlash()) {
+                foreach (app()->session()->flash() as $flash) {
+                    echo $flash;
+                }
+            } ?>
+
+            <?php if (!empty($assets['script'])) {
+                echo $assets['script'] . PHP_EOL ;
+            } ?>
+        });
+    </script>
+
+</body>
+
+</html>

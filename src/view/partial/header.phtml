@@ -1,0 +1,71 @@
+<?php
+
+$current = current_route();
+
+?>
+<div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 py-3">
+                <h4 class="text-white">Profil</h4>
+                <p class="text-muted">Resepsionis BPS adalah program aplikasi berbasis web yang menyediakan fitur buku tamu elektronik dan survei kepuasan konsumen BPS.</p>
+            </div>
+            <div class="col-6 py-3">
+                <h4 class="text-white">Kontak</h4>
+                <ul class="list-unstyled">
+                    <li><span class="text-muted">PPD-Online: </span><a href="https://webapps.bps.go.id/rokanhulukab/ppd/" target="blank" class="text-muted">webapps.bps.go.id/rokanhulukab/ppd/</a></li>
+                    <li><span class="text-muted">Website: </span><a href="https://rohulkab.bps.go.id" target="blank" class="text-muted">rohulkab.bps.go.id</a></li>
+                    <li><span class="text-muted">Email: </span><a href="mailto:pst1407@bps.go.id" class="text-muted">pst1407@bps.go.id</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4 class="text-white text-center">Menu</h4>
+                <div class="d-flex justify-content-center mb-3">
+                    <?php if (app()->user()->isAuthenticated()) : ?>
+                        <div class="p-2 mr-2"><a href="<?= route_to('admin') ?>" class="btn btn-light">Halaman Administrasi</a></div>
+                    <?php else : ?>
+                        <div class="p-2"><a href="<?= route_to('login') ?>" class="btn btn-light">Masuk</a></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="navbar navbar-dark bg-primary shadow-sm">
+    <div class="container d-flex justify-content-between">
+        <?php if (in_array($current, ['list_guest','create_survey','login'])) : ?>
+            <a href="<?= route_to('home') ?>" class="navbar-brand d-flex align-items-center btn btn-outline-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" stroke="none" class="mr-3" focusable="false">
+                    <path d="M11.299988,0L16.599976,0 7.0999756,8.8999959 32,8.8999959 32,12.399997 7.0999756,12.399997 16.5,21.299993 16.400024,21.399999 11.299988,21.399999 2.5999756,13.100009 0,10.699985z" />
+                </svg>
+                <strong>Ke Halaman Utama</strong>
+            </a>
+        <?php elseif ($current === 'create_guest') : ?>
+            <a href="<?= route_to('list_guest') ?>" class="navbar-brand d-flex align-items-center btn btn-outline-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" stroke="none" class="mr-3" focusable="false">
+                    <path d="M11.299988,0L16.599976,0 7.0999756,8.8999959 32,8.8999959 32,12.399997 7.0999756,12.399997 16.5,21.299993 16.400024,21.399999 11.299988,21.399999 2.5999756,13.100009 0,10.699985z" />
+                </svg>
+                <strong>Ke Daftar Buku Tamu</strong>
+            </a>
+        <?php elseif (in_array($current, ['feedback_cukup', 'feedback_tidak'])) : ?>
+            <a href="<?= route_to('create_survey') ?>" class="navbar-brand d-flex align-items-center btn btn-outline-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" stroke="none" class="mr-3" focusable="false">
+                    <path d="M11.299988,0L16.599976,0 7.0999756,8.8999959 32,8.8999959 32,12.399997 7.0999756,12.399997 16.5,21.299993 16.400024,21.399999 11.299988,21.399999 2.5999756,13.100009 0,10.699985z" />
+                </svg>
+                <strong>Ke Halaman Survei</strong>
+            </a>
+        <?php else : ?>
+            <div class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" stroke="none" class="mr-2"  focusable="false">
+                    <path d="M11.000005,12.600006L17.098005,15.267006 24.000006,12.600006 24.000006,23.017006 17.595005,25.225006 11.307005,23.000006 18.774006,23.000006C20.455006,23.000006 21.823006,21.655005 21.823006,20.000006 21.823006,18.346005 20.455006,17.000006 18.774006,17.000006L11.000005,17.000006z M17.355993,9.3689985L23.547987,11.407001 17.247993,13.586003 11.524998,11.446001z M4.00001,9C6.2089963,9,8.0000134,10.871994,8.0000134,13.182007L8.0000134,18 18.79702,18C19.931999,18 20.851007,18.895996 20.851007,20 20.851007,21.104004 19.931999,22 18.79702,22L8.0000134,22 8.0000134,32 6.3390012,31.735001C4.7930098,31.488998,3.3039951,30.947006,1.9459925,30.136002L6.6757202E-06,28.972 6.6757202E-06,13.182007C6.6756438E-06,10.871994,1.7909933,9,4.00001,9z M4,0C6.2090001,0 8,1.7909999 8,4 8,6.2090001 6.2090001,8 4,8 1.791,8 0,6.2090001 0,4 0,1.7909999 1.791,0 4,0z" />
+                </svg>
+                <strong><?=app()->config('application.name')?></strong>
+        </div>
+        <?php endif; ?>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>

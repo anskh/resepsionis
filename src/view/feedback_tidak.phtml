@@ -1,0 +1,16 @@
+<div class="container">
+    <h3 class="py-3 text-center"><strong>Isi Feedback Survei Kepuasan Konsumen</strong></h3>
+    <p class="py-3 text-center">Silahkan sampaikan saran/kritik/alasan Anda</p>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <?php $form = $model->form(); ?>
+            <?=$form->begin(route_to('feedback_tidak'), 'POST')?>
+                <?=$form->field('feedback', 'form-group mb-3')?>
+                <p><span class="text-danger mb-5">*</span> : Wajib diisi.</p>
+                <div class="text-center">
+                    <button class="btn btn-lg btn-primary" type="submit">Kirim</button>
+                </div>
+            <?=$form->end()?>
+        </div>
+    </div>
+</div>
