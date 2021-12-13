@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Core\Config\Constants;
-use Core\Db\Migration;
+use PhpWeb\Config\Config;
+use PhpWeb\Db\Migration;
 
 class m0007_survey extends Migration
 {

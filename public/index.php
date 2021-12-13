@@ -6,14 +6,16 @@ if(!defined("ROOT")) define("ROOT", dirname(__DIR__));
 
 require_once ROOT . "/vendor/autoload.php";
 
-use Core\Middleware\AccessControlMiddleware;
-use Core\Middleware\ExceptionHandlerMiddleware;
-use Core\Middleware\SessionMiddleware;
+use PhpWeb\Middleware\AccessControlMiddleware;
+use PhpWeb\Middleware\ExceptionHandlerMiddleware;
+use PhpWeb\Middleware\SessionMiddleware;
 use Laminas\Diactoros\{
     Response,
     ServerRequestFactory
 };
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use PhpWeb\Config\Config;
+use PhpWeb\Http\Kernel;
 use WoohooLabs\Harmony\Middleware\{
     DispatcherMiddleware,
     FastRouteMiddleware,
@@ -21,21 +23,21 @@ use WoohooLabs\Harmony\Middleware\{
 };
 
 // Initializing config
-app()->init(ROOT . '/config');
+Kernel::init(ROOT . '/config');
 
 // Initializing the router
 $router = FastRoute\simpleDispatcher(static function (FastRoute\RouteCollector $r) {
-    $base_path = app()->config('application.base_path', '');
-    $routes = app()->config('route', []);
+    $base_path = Kernel::getInstance()->config(Config::ATTR_APP_CONFIG . '.' . Config::ATTR_APP_BASEPATH, '');
+    $routes = Kernel::getInstance()->config(Config::ATTR_ROUTE_CONFIG, []);
 
-    foreach($routes as $name => $params){
-        list($method, $path, $handler) = $params;
+    foreach($routes as $route){
+        list($method, $path, $handler) = $route;
         $r->addRoute($method, $base_path . $path, $handler);
     }
 });
 
 // Instantiating the framework
-$app = app()->make(ServerRequestFactory::fromGlobals(), new Response());
+$app = Kernel::handle(ServerRequestFactory::fromGlobals(), new Response());
 
 // Stacking up middleware
 $app

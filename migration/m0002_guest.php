@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-use Core\Db\Migration;
+use PhpWeb\Db\Migration;
+
+use function PhpWeb\app;
 
 class m0002_guest extends Migration
 {
@@ -10,7 +12,7 @@ class m0002_guest extends Migration
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . db_table($this->table) . '(
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . app()->db()->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,
             nama VARCHAR(255) NOT NULL,
             asal VARCHAR(255) NOT NULL,
@@ -24,7 +26,7 @@ class m0002_guest extends Migration
 
         try
         {
-            app()->db()->exec($sql);
+            app()->db()->connection()->exec($sql);
         }catch(Exception $e){
             return false;
         }
@@ -66,7 +68,7 @@ class m0002_guest extends Migration
         
         try
         {
-            db_insert($data, db_table($this->table));
+            app()->db()->insert($data, $this->table);
         }catch(Exception $e){
             return false;
         }

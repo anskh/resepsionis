@@ -2,30 +2,27 @@
     "name": "anskh/resepsionis",
     "type": "project",
     "require": {
-        "php": "^7.4 | ^8.1",
+        "php": ">=7.4",
         "nikic/fast-route": "^1.3",
         "laminas/laminas-diactoros": "^2.8",
         "laminas/laminas-httphandlerrunner": "^2.1",
         "woohoolabs/harmony": "^7.1",
         "slim/php-view": "^3.1",
-        "monolog/monolog": "^2.3"
+        "anskh/phpweb": "v1.0.0-alpha"
     },
     "autoload": {
         "psr-0": {},
         "psr-4": {
-            "App\\": "src/app",
-            "Core\\": "src/core"
+            "App\\": "src"
         },
         "classmap": [
             "migration"
         ],
         "files": [
-            "src/core/functions.php"
+            "src/functions.php"
         ]
     },
-    "require-dev": {
-        "filp/whoops": "^2.14"
-    },
+    "require-dev": {},
     "authors": [{
         "name": "Khaerul Anas",
         "email": "anasikova@gmail.com"

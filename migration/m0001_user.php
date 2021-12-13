@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-use Core\Config\Constants;
-use Core\Db\Migration;
-use Core\Http\Session\Session;
+use PhpWeb\Config\Config;
+use PhpWeb\Db\Migration;
+use PhpWeb\Http\Session\Session;
+
+use function PhpWeb\app;
 
 class m0001_user extends Migration
 {
@@ -12,7 +14,7 @@ class m0001_user extends Migration
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . db_table($this->table) . '(
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . app()->db()->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,
             name VARCHAR(255) NOT NULL UNIQUE,
             email VARCHAR(255) NOT NULL UNIQUE,
@@ -26,7 +28,7 @@ class m0001_user extends Migration
 
         try
         {
-            app()->db()->exec($sql);
+            app()->db()->connection()->exec($sql);
         }catch(Exception $e){
             return false;
         }
@@ -39,7 +41,7 @@ class m0001_user extends Migration
         $data = [
             'name'=>'Anas',
             'email'=>'khaerulanas@bps.go.id',
-            'password'=>password_hash('123', Constants::HASHING_ALGORITHM),
+            'password'=>password_hash('123', Config::HASHING_ALGORITHM),
             'token'=>Session::generateToken(),
             'roles'=>'admin|user',
             'create_at'=> time()
@@ -47,7 +49,7 @@ class m0001_user extends Migration
 
         try
         {
-            db_insert($data, db_table($this->table));
+            app()->db()->insert($data, $this->table);
         }catch(Exception $e){
             return false;
         }

@@ -2,28 +2,29 @@
 
 declare(strict_types=1);
 
-use Core\Config\Constants;
-use Core\Db\Migration;
+use PhpWeb\Config\Config;
+use PhpWeb\Db\Migration;
+
+use function PhpWeb\app;
 
 class m0003_role extends Migration
 {
-    protected string $table = Constants::ACCESS_ROLE;
+    protected string $table = Config::ACCESSCONTROL_ROLE;
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . db_table($this->table) . '(
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . app()->db()->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,' .
-            Constants::ACCESS_ROLE_NAME . ' VARCHAR(255) NOT NULL UNIQUE,
+            Config::ACCESSCONTROL_ROLE_NAME . ' VARCHAR(255) NOT NULL UNIQUE,
             PRIMARY KEY (id)
         )ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;';
 
-        try
-        {
-            app()->db()->exec($sql);
-        }catch(Exception $e){
+        try {
+            app()->db()->connection()->exec($sql);
+        } catch (Exception $e) {
             return false;
         }
-         
+
         return true;
     }
 
@@ -31,20 +32,19 @@ class m0003_role extends Migration
     {
         $data = [
             [
-                Constants::ACCESS_ROLE_NAME=>'admin'
+                Config::ACCESSCONTROL_ROLE_NAME => 'admin'
             ],
             [
-                Constants::ACCESS_ROLE_NAME=>'user'
+                Config::ACCESSCONTROL_ROLE_NAME => 'user'
             ]
         ];
-        
-        try
-        {
-            db_insert($data, db_table($this->table));
-        }catch(Exception $e){
+
+        try {
+            app()->db()->insert($data, $this->table);
+        } catch (Exception $e) {
             return false;
         }
-         
+
         return true;
     }
 }

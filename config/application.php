@@ -3,24 +3,25 @@
 declare(strict_types=1);
 
 use App\Model\User;
-use Core\Config\Constants;
+use PhpWeb\Config\Config;
+use PhpWeb\Config\Environment;
 
 return [
-    'name' => 'Resepsionis BPS',
-    'version' => '1.0',
-    'vendor' => 'BPS Kabupaten Rokan Hulu',
-    'view' => [
-        Constants::VIEW_PATH => ROOT . '/src/app/view',
-        Constants::VIEW_FILE_EXT => '.phtml'
+    Config::ATTR_APP_NAME => 'Resepsionis BPS',
+    Config::ATTR_APP_VERSION => '1.0',
+    Config::ATTR_APP_VENDOR => 'BPS Kabupaten Rokan Hulu',
+    Config::ATTR_APP_VIEW => [
+        Config::ATTR_VIEW_PATH => ROOT . '/src/app/view',
+        Config::ATTR_VIEW_FILE_EXT => '.phtml'
     ],
-    'base_url' => 'http://localhost',
-    'base_path' => '/resepsionis',
-    'environment' => Constants::DEVELOPMENT,
-    'access_control' => [
-        Constants::ACCESS_DRIVER => Constants::ACCESS_DRIVER_FILE,
-        Constants::ACCESS_DRIVER_FILE => 'acl',
-        Constants::ACCESS_DRIVER_DB => 'mysql',
-        Constants::ACCESS_MODEL => User::class
+    Config::ATTR_APP_BASEURL => 'http://localhost',
+    Config::ATTR_APP_BASEPATH => '/resepsionis',
+    Config::ATTR_APP_ENVIRONMENT => Environment::DEVELOPMENT,
+    Config::ATTR_APP_ACCESSCONTROL => [
+        Config::ATTR_ACCESSCONTROL_DRIVER => Config::ACCESSCONTROL_DRIVER_FILE,
+        Config::ACCESSCONTROL_DRIVER_FILE => 'acl',
+        Config::ACCESSCONTROL_DRIVER_DB => 'mysql',
+        Config::ATTR_ACCESSCONTROL_MODEL => User::class
     ],
     'config'=>[
         'guest'=>[

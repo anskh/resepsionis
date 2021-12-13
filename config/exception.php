@@ -5,11 +5,12 @@ declare(strict_types=1);
 use Core\Http\Session\FlashMessage;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Response\RedirectResponse;
+use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 
 return [
     // callable when unauthorized
-    'unauthorized' => function(int $status = 401): ResponseInterface
+    Config::ATTR_EXCEPTION_UNAUTHORIZED => function(int $status = 401): ResponseInterface
     {
         $response = new Response();
         $response->getBody()->write('Maaf, halaman tidak tersedia untuk Anda.');
@@ -18,7 +19,7 @@ return [
     },
     
     // callable when forbidden
-    'forbidden' => function(int $status = 302): ResponseInterface
+    Config::ATTR_EXCEPTION_FORBIDDEN => function(int $status = 302): ResponseInterface
     {
         app()->session()->flash('forbidden_info', 'Perlu otentikasi untuk mengakses halaman tersebut.', FlashMessage::ERROR);
         
@@ -26,7 +27,7 @@ return [
     },
 
     // callable when notfound
-    'notfound' => function(): ResponseInterface
+    Config::ATTR_EXCEPTION_NOTFOUND => function(): ResponseInterface
     {
         app()->session()->flash('notfound_info', 'Halaman yang dituju tidak ditemukan.', FlashMessage::ERROR);
         
@@ -34,7 +35,7 @@ return [
     }
 
     // callable when error
-    //'throwable' => static function(Throwable $exception){
+    //Config::ATTR_EXCEPTION_THROWABLE => static function(Throwable $exception){
     //    return view('error500', null, 'main', ['title'=>'Resepsionis BPS - Kesalahan 500', 'exception'=>$exception]);
     //},
 ];

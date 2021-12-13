@@ -2,26 +2,28 @@
 
 declare(strict_types=1);
 
+use PhpWeb\Config\Config;
+
 return [
-    'default_connection' => 'mysql',
-    'connections' => [
+    Config::ATTR_DB_DEFAULT_CONNECTION => 'mysql',
+    Config::ATTR_DB_CONNECTION => [
         'mysql' => [
-            'dsn' => 'mysql:host=localhost;port=3306;dbname=resepsionis',
-            'user' => 'root',
-            'password' => 'password'
+            Config::ATTR_DB_CONNECTION_DSN => 'mysql:host=localhost;port=3306;dbname=resepsionis',
+            Config::ATTR_DB_CONNECTION_USER => 'root',
+            Config::ATTR_DB_CONNECTION_PASSWD => 'password'
         ],
         'sqlite' => [
-            'dsn' => 'sqlite:' . ROOT . '/writeable/db/resepsionis.db'
+            Config::ATTR_DB_CONNECTION_DSN => 'sqlite:' . ROOT . '/writeable/db/resepsionis.db'
         ],
         'pgsql' => [
-            'dsn' => 'pgsql:host=localhost;port=5432;dbname=resepsionis',
-            'user' => 'postgres',
-            'password' => 'password'
+            Config::ATTR_DB_CONNECTION_DSN => 'pgsql:host=localhost;port=5432;dbname=resepsionis',
+            Config::ATTR_DB_CONNECTION_USER => 'postgres',
+            Config::ATTR_DB_CONNECTION_PASSWD => 'password'
         ]
     ],
-    'prefix' => 'tbl_',
-    'migration' => [
-        'path' => ROOT . '/migration',
-        'action' => 'up'
+    Config::ATTR_DB_PREFIX => 'tbl_',
+    Config::ATTR_DB_MIGRATION => [
+        Config::ATTR_DB_MIGRATION_PATH => ROOT . '/migration',
+        Config::ATTR_DB_MIGRATION_ACTION => 'up'
     ]
 ];
