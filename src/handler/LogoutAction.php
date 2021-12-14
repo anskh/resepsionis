@@ -6,6 +6,7 @@ namespace App\Handler;
 
 use PhpWeb\Http\Session\FlashMessage;
 use Laminas\Diactoros\Response\RedirectResponse;
+use PhpWeb\Http\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -17,8 +18,8 @@ class LogoutAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(app()->user()->isAuthenticated()){
-            app()->session()->unset('sid');
-            app()->session()->unset('shash');
+            app()->session()->unset(Session::ATTR_SESSION_ID);
+            app()->session()->unset(Session::ATTR_SESSION_HASH);
             app()->session()->flash('login_info', 'Selamat telah berhasil keluar.', FlashMessage::SUCCESS);
         }
 

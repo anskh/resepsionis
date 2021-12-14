@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 
 use function PhpWeb\app;
 use function PhpWeb\view;
+use function PhpWeb\route_to;
 
 return [
     // callable when unauthorized

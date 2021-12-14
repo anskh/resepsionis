@@ -14,7 +14,7 @@ class m0007_survey extends Migration
     {
         $db = app()->db($this->connection);
         $sql = 'CREATE TABLE IF NOT EXISTS ' . $db->table($this->table) . '(
-            id INT(11) NOT NULL AUTO_INCREMENT,  
+            id INT(11) NOT NULL AUTO_INCREMENT, 
             selected INT NOT NULL DEFAULT 4,
             feedback VARCHAR(255) NULL,
             create_at INT(11) NOT NULL, 

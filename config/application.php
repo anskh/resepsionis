@@ -16,9 +16,9 @@ return [
     ],
     Config::ATTR_APP_BASEURL => 'http://localhost/resepsionis',
     Config::ATTR_APP_BASEPATH => '/resepsionis',
-    Config::ATTR_APP_ENVIRONMENT => Environment::DEVELOPMENT,
+    Config::ATTR_APP_ENVIRONMENT => Environment::PRODUCTION,
     Config::ATTR_APP_ACCESSCONTROL => [
-        Config::ATTR_ACCESSCONTROL_DRIVER => Config::ACCESSCONTROL_DRIVER_FILE,
+        Config::ATTR_ACCESSCONTROL_DRIVER => Config::ACCESSCONTROL_DRIVER_DB,
         Config::ACCESSCONTROL_DRIVER_FILE => Config::ATTR_ACCESSCONTROL_CONFIG,
         Config::ACCESSCONTROL_DRIVER_DB => 'mysql',
         Config::ATTR_ACCESSCONTROL_USERMODEL => User::class

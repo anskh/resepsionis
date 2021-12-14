@@ -17,7 +17,7 @@ class m0005_filter extends Migration
         $sql = 'CREATE TABLE IF NOT EXISTS ' . $db->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,' .
             Config::ATTR_ACCESSCONTROL_FILTER_TYPE . ' VARCHAR(255) NOT NULL UNIQUE, ' .
-            Config::ATTR_ACCESSCONTROL_FILTER_LIST . ' VARCHAR(255) NULL,
+            Config::ATTR_ACCESSCONTROL_FILTER_LIST . ' TEXT NOT NULL DEFAULT \'\',
             PRIMARY KEY (id)
         )ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;';
 

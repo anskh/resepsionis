@@ -31,14 +31,12 @@ class m0003_role extends Migration
 
     public function seed(): bool
     {
-        $data = [
-            [
-                Config::ATTR_ACCESSCONTROL_ROLE_NAME => 'admin'
-            ],
-            [
-                Config::ATTR_ACCESSCONTROL_ROLE_NAME => 'user'
-            ]
-        ];
+        $roles = app()->config(Config::ATTR_ACCESSCONTROL_CONFIG . '.' . Config::ATTR_ACCESSCONTROL_ROLE);
+        $data = [];
+        foreach($roles as $role)
+        {
+            $data[] = [Config::ATTR_ACCESSCONTROL_ROLE_NAME => $role];
+        }
 
         try {
             app()->db($this->connection)->insert($data, $this->table);

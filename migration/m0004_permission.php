@@ -32,6 +32,19 @@ class m0004_permission extends Migration
 
     public function seed(): bool
     {
-        return false;
+        $permissions = app()->config(Config::ATTR_ACCESSCONTROL_CONFIG . '.' . Config::ATTR_ACCESSCONTROL_PERMISSION);
+        $data = [];
+        foreach($permissions as $permission)
+        {
+            $data[] = [Config::ATTR_ACCESSCONTROL_PERMISSION_NAME => $permission];
+        }
+
+        try {
+            app()->db($this->connection)->insert($data, $this->table);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }

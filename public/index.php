@@ -24,7 +24,7 @@ use WoohooLabs\Harmony\Middleware\{
 };
 
 // Initializing config
-Kernel::init(ROOT . '/config', Environment::DEVELOPMENT);
+Kernel::init(ROOT . '/config', Environment::PRODUCTION);
 
 // Initializing the router
 $router = FastRoute\simpleDispatcher(static function (FastRoute\RouteCollector $r) {
