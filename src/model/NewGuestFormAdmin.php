@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Core\Model\FormModel;
+use PhpWeb\Model\FormModel;
 
 class NewGuestFormAdmin extends FormModel
 {
@@ -27,11 +27,11 @@ class NewGuestFormAdmin extends FormModel
     ];
 
     protected array $rules = [
-        'nama' => [self::RULE_REQUIRED,[self::RULE_MIN_LENGTH, 3]],
-        'asal' => [self::RULE_REQUIRED,[self::RULE_MIN_LENGTH, 3]],
-        'keperluan' => [self::RULE_REQUIRED,[self::RULE_MIN_LENGTH, 4]],
-        'hp' => [self::RULE_REQUIRED, [self::RULE_MIN_LENGTH , 10], [self::RULE_MAX_LENGTH, 15]],
-        'tanggal' => [self::RULE_REQUIRED, [self::RULE_DATE, 'Y-m-d']],
-        'create_guest_csrf'=> self::RULE_CSRF
+        'nama' => [self::ATTR_RULE_REQUIRED,[self::ATTR_RULE_MIN_LENGTH, 3]],
+        'asal' => [self::ATTR_RULE_REQUIRED,[self::ATTR_RULE_MIN_LENGTH, 3]],
+        'keperluan' => [self::ATTR_RULE_REQUIRED,[self::ATTR_RULE_MIN_LENGTH, 4]],
+        'hp' => [self::ATTR_RULE_REQUIRED, [self::ATTR_RULE_MIN_LENGTH , 10], [self::ATTR_RULE_MAX_LENGTH, 15]],
+        'tanggal' => [self::ATTR_RULE_REQUIRED, [self::ATTR_RULE_DATE, 'Y-m-d']],
+        'create_guest_csrf'=> self::ATTR_RULE_CSRF
     ];
 }

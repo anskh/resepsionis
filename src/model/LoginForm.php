@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Core\Model\FormModel;
+use PhpWeb\Model\FormModel;
 
 class LoginForm extends FormModel
 {
@@ -18,8 +18,8 @@ class LoginForm extends FormModel
     ];
 
     protected array $rules = [
-        'email' => self::RULE_EMAIL,
-        'password' => self::RULE_REQUIRED,
-        'logincsrf' => self::RULE_CSRF
+        'email' => self::ATTR_RULE_EMAIL,
+        'password' => self::ATTR_RULE_REQUIRED,
+        'logincsrf' => self::ATTR_RULE_CSRF
     ];
 }

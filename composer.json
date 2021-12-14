@@ -22,7 +22,9 @@
             "src/functions.php"
         ]
     },
-    "require-dev": {},
+    "require-dev": {
+        "filp/whoops": "^2.14"
+    },
     "authors": [{
         "name": "Khaerul Anas",
         "email": "anasikova@gmail.com"

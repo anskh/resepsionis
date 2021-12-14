@@ -9,20 +9,21 @@ use function PhpWeb\app;
 
 class m0006_assignment extends Migration
 {
-    protected string $table = Config::ACCESSCONTROL_ASSIGNMENT;
+    protected string $table = Config::ATTR_ACCESSCONTROL_ASSIGNMENT;
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . app()->db()->table($this->table) . '(
+        $db = app()->db($this->connection);
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $db->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT, ' .
-            Config::ACCESSCONTROL_ROLE . ' VARCHAR(255) NOT NULL UNIQUE, ' .
-            Config::ACCESSCONTROL_PERMISSION . ' VARCHAR(255) NULL,
+            Config::ATTR_ACCESSCONTROL_ROLE . ' VARCHAR(255) NOT NULL UNIQUE, ' .
+            Config::ATTR_ACCESSCONTROL_PERMISSION . ' VARCHAR(255) NULL,
             PRIMARY KEY (id)
         )ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;';
 
         try
         {
-            app()->db()->connection()->exec($sql);
+            $db->connection()->exec($sql);
         }catch(Exception $e){
             return false;
         }

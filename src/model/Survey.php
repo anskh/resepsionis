@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Core\Model\DbModel;
+use PhpWeb\Model\DbModel;
 
 class Survey extends DbModel
 {
@@ -22,7 +22,7 @@ class Survey extends DbModel
 
     public static function table(): string
     {
-        return db_table('survey');
+        return 'survey';
     }
 
 }

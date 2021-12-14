@@ -6,11 +6,18 @@ namespace App\Handler;
 
 use App\Model\Guest;
 use App\Model\NewGuestForm;
-use Core\Http\Session\FlashMessage;
-use Core\Model\FormModel;
+use PhpWeb\Http\Session\FlashMessage;
+use PhpWeb\Model\FormModel;
 use Laminas\Diactoros\Response\RedirectResponse;
+use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+
+use function PhpWeb\view;
+use function PhpWeb\route_to;
+use function PhpWeb\app;
+use function App\base64_photo;
+use function App\save_base64_photo;
 
 class GuestController
 {
@@ -36,11 +43,11 @@ class GuestController
     {
         $model = new NewGuestForm();
         $rules = [
-            'nama' => [FormModel::RULE_REQUIRED, [FormModel::RULE_MIN_LENGTH, 3]],
-            'asal' => [FormModel::RULE_REQUIRED, [FormModel::RULE_MIN_LENGTH, 3]],
-            'keperluan' => [FormModel::RULE_REQUIRED, [FormModel::RULE_MIN_LENGTH, 4]],
-            'hp' => [FormModel::RULE_REQUIRED, [FormModel::RULE_MIN_LENGTH , 10], [FormModel::RULE_MAX_LENGTH, 15], FormModel::RULE_NUMERIC],
-            'create_guest_csrf'=> FormModel::RULE_CSRF
+            'nama' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_MIN_LENGTH, 3]],
+            'asal' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_MIN_LENGTH, 3]],
+            'keperluan' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_MIN_LENGTH, 4]],
+            'hp' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_MIN_LENGTH , 10], [FormModel::ATTR_RULE_MAX_LENGTH, 15], FormModel::ATTR_RULE_NUMERIC],
+            'create_guest_csrf'=> FormModel::ATTR_RULE_CSRF
         ];
         $labels = [
             'nama' => 'Nama Pengunjung <span class="text-danger">*</span>',
@@ -51,7 +58,7 @@ class GuestController
             'foto' => 'Identitas foto pengunjung'
         ];
 
-        $allow_no_photo = app()->config('application.config.guest.allow_no_photo', false);
+        $allow_no_photo = app()->config(Config::ATTR_APP_CONFIG . '.config.guest.allow_no_photo', false);
 
         if($allow_no_photo === false){
             $labels['foto'] = 'Identitas foto pengunjung <span class="text-danger">*</span>';
@@ -112,7 +119,7 @@ class GuestController
 
         return view('view_guest', $response, 'main', [
             'title' => 'Bukutamu BPS',
-            'guest' => Guest::get($id)
+            'guest' => Guest::getRow($id)
         ]);
     }
 }

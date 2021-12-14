@@ -9,18 +9,19 @@ use function PhpWeb\app;
 
 class m0003_role extends Migration
 {
-    protected string $table = Config::ACCESSCONTROL_ROLE;
+    protected string $table = Config::ATTR_ACCESSCONTROL_ROLE;
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . app()->db()->table($this->table) . '(
+        $db = app()->db($this->connection);
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $db->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,' .
-            Config::ACCESSCONTROL_ROLE_NAME . ' VARCHAR(255) NOT NULL UNIQUE,
+            Config::ATTR_ACCESSCONTROL_ROLE_NAME . ' VARCHAR(255) NOT NULL UNIQUE,
             PRIMARY KEY (id)
         )ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;';
 
         try {
-            app()->db()->connection()->exec($sql);
+            $db->connection()->exec($sql);
         } catch (Exception $e) {
             return false;
         }
@@ -32,15 +33,15 @@ class m0003_role extends Migration
     {
         $data = [
             [
-                Config::ACCESSCONTROL_ROLE_NAME => 'admin'
+                Config::ATTR_ACCESSCONTROL_ROLE_NAME => 'admin'
             ],
             [
-                Config::ACCESSCONTROL_ROLE_NAME => 'user'
+                Config::ATTR_ACCESSCONTROL_ROLE_NAME => 'user'
             ]
         ];
 
         try {
-            app()->db()->insert($data, $this->table);
+            app()->db($this->connection)->insert($data, $this->table);
         } catch (Exception $e) {
             return false;
         }

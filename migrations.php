@@ -6,21 +6,24 @@ if(!defined("ROOT")) define("ROOT", __DIR__);
 
 require_once ROOT . "/vendor/autoload.php";
 
+use PhpWeb\Config\Config;
+use PhpWeb\Http\Kernel;
+
 if($argc > 1){
     $action = $argv[1];
 }else{
     $action = null;
 }
 
-if(!empty($action)){
+if($action){
     if(!in_array($action, ['up','down','seed'], true)){
         die('Argument is invalid. Available arguments are up, seed, or down');
     }
 }
 
 // init config
-app()->init(ROOT . '/config');
+Kernel::init(ROOT . '/config');
 
 // build migration
-$builder = app()->buildMigration(ROOT . '/migration', $action);
+$builder = Kernel::getInstance()->buildMigration(null, null, $action);
 $builder->applyMigration();

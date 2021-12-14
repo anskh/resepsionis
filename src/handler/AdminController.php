@@ -11,13 +11,17 @@ use App\Model\NewGuestFormAdmin;
 use App\Model\Survey;
 use App\Model\User;
 use App\Model\UserForm;
-use Core\Config\Constants;
-use Core\Http\Session\FlashMessage;
-use Core\Http\Session\Session;
-use Core\Model\FormModel;
+use PhpWeb\Http\Session\FlashMessage;
+use PhpWeb\Http\Session\Session;
+use PhpWeb\Model\FormModel;
 use Laminas\Diactoros\Response\RedirectResponse;
+use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+
+use function PhpWeb\view;
+use function PhpWeb\app;
+use function PhpWeb\route_to;
 
 class AdminController 
 {
@@ -75,7 +79,7 @@ class AdminController
                 if(User::create([
                     'name'=>$model->name,
                     'email'=>$model->email,
-                    'password'=>password_hash($model->password, Constants::HASHING_ALGORITHM) ,
+                    'password'=>password_hash($model->password, Config::HASHING_ALGORITHM) ,
                     'token'=>Session::generateToken(),
                     'roles'=>$model->roles,
                     'create_at'=>time()
@@ -99,13 +103,13 @@ class AdminController
     {
         $id = $request->getAttribute('id');
         $model = new EditUserForm();
-        $model->fill(User::get($id));
+        $model->fill(User::getRow($id));
 
         $rules = [
-            'name' => [FormModel::RULE_REQUIRED, [FormModel::RULE_MIN_LENGTH, 3]],
-            'email' => [FormModel::RULE_EMAIL,[FormModel::RULE_UNIQUE, 'user', 'email', $model->email]],
-            'roles' => [FormModel::RULE_REQUIRED, [FormModel::RULE_IN_LIST, ['user','admin','user|admin','admin|user']]],
-            'user_csrf' => FormModel::RULE_CSRF
+            'name' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_MIN_LENGTH, 3]],
+            'email' => [FormModel::ATTR_RULE_EMAIL,[FormModel::ATTR_RULE_UNIQUE, 'user', 'email', $model->email]],
+            'roles' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_IN_LIST, ['user','admin','user|admin','admin|user']]],
+            'user_csrf' => FormModel::ATTR_RULE_CSRF
         ];
 
         $model->setRules($rules);
@@ -207,7 +211,7 @@ class AdminController
 
         return view('admin_view_guest', $response, 'admin', [
             'title' => 'Halaman Administrasi Survei Kepuasan',
-            'guest'=> Guest::get($id)
+            'guest'=> Guest::getRow($id)
         ]);
     }
 
@@ -215,7 +219,7 @@ class AdminController
     {
         $id = $request->getAttribute('id');
         $model = new EditGuestFormAdmin();
-        $model->fill(Guest::get($id));
+        $model->fill(Guest::getRow($id));
 
         if($request->getMethod() === 'POST'){
             if($model->validateWithRequest($request)){
@@ -269,7 +273,7 @@ class AdminController
 
         return view('admin_create_guest', $response, 'admin', [
             'title' => 'Halaman Administrasi Survei Kepuasan',
-            'guest'=> Guest::get($id),
+            'guest'=> Guest::getRow($id),
             'model'=>$model
         ]);
     }

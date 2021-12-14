@@ -1,3 +1,7 @@
+<?php
+use function PhpWeb\route_to;
+use function PhpWeb\app;
+?>
 <div class="container">
     <div class="row justify-content-end mb-3">
         <div class="col-auto">
@@ -18,7 +22,7 @@
                     } ?>
                 </div>
             <?php endif; ?>
-            <?= $form->input('admin_guest_csrf', 'hidden', ['value' => app()->session()->generateCsrfToken('admin_guest_csrf')]) ?>
+            <?= $form->input('admin_edit_guest_csrf', 'hidden', ['value' => app()->session()->generateCsrfToken('admin_edit_guest_csrf')]) ?>
             <?= $form->field('nama', 'form-group mb-3') ?>
             <?= $form->field('asal', 'form-group mb-3') ?>
             <?= $form->field('keperluan', 'form-group mb-3') ?>

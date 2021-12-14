@@ -12,7 +12,8 @@ class m0002_guest extends Migration
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . app()->db()->table($this->table) . '(
+        $db = app()->db($this->connection);
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $db->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,
             nama VARCHAR(255) NOT NULL,
             asal VARCHAR(255) NOT NULL,
@@ -26,7 +27,7 @@ class m0002_guest extends Migration
 
         try
         {
-            app()->db()->connection()->exec($sql);
+            $db->connection()->exec($sql);
         }catch(Exception $e){
             return false;
         }
@@ -68,7 +69,7 @@ class m0002_guest extends Migration
         
         try
         {
-            app()->db()->insert($data, $this->table);
+            app()->db($this->connection)->insert($data, $this->table);
         }catch(Exception $e){
             return false;
         }

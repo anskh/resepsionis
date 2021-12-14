@@ -6,16 +6,21 @@ namespace App\Handler;
 
 use App\Model\Survey;
 use App\Model\SurveyForm;
-use Core\Http\Session\FlashMessage;
+use PhpWeb\Http\Session\FlashMessage;
 use Laminas\Diactoros\Response\RedirectResponse;
+use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+
+use function PhpWeb\app;
+use function PhpWeb\view;
+use function PhpWeb\route_to;
 
 class SurveyController
 {
     public function create(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        app()->session()->set('survey_token', app()->config('application.config.survey.token'));
+        app()->session()->set('survey_token', app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token'));
 
         return view('create_survey', $response, 'main', [
             'title' => 'Isi Survei Kepuasan Konsumen BPS',
@@ -31,7 +36,7 @@ class SurveyController
     public function sangat(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $token = app()->session()->unset('survey_token');
-        if ($token === app()->config('application.config.survey.token')) {
+        if ($token === app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token')) {
             //simpan
             Survey::create([
                 'selected' => 4,
@@ -51,7 +56,7 @@ class SurveyController
     public function puas(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $token = app()->session()->unset('survey_token');
-        if ($token === app()->config('application.config.survey.token')) {
+        if ($token === app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token')) {
             //simpan
             Survey::create([
                 'selected' => 3,
@@ -76,7 +81,7 @@ class SurveyController
         if ($request->getMethod() === 'POST') {
             if ($model->validateWithRequest($request)) {
                 $token = app()->session()->unset('survey_token');
-                if ($token === app()->config('application.config.survey.token')) {
+                if ($token === app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token')) {
                     //simpan
                     Survey::create([
                         'selected' => 2,
@@ -108,7 +113,7 @@ class SurveyController
         if ($request->getMethod() === 'POST') {
             if ($model->validateWithRequest($request)) {
                 $token = app()->session()->unset('survey_token');
-                if ($token === app()->config('application.config.survey.token')) {
+                if ($token === app()->config(Config::ATTR_APP_CONFIG .  '.config.survey.token')) {
                     //simpan
                     Survey::create([
                         'selected' => 1,

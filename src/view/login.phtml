@@ -1,7 +1,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-4">
-            <?php $form = $login->form(); ?>
+            <?php
+
+use function PhpWeb\route_to; 
+use function PhpWeb\app;
+
+$form = $login->form(); ?>
             <?=$form->begin(route_to('login'), 'POST')?>
                 <div class="text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="mb-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">

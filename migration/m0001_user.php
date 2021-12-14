@@ -14,7 +14,8 @@ class m0001_user extends Migration
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . app()->db()->table($this->table) . '(
+        $db = app()->db($this->connection);
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $db->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,
             name VARCHAR(255) NOT NULL UNIQUE,
             email VARCHAR(255) NOT NULL UNIQUE,
@@ -28,7 +29,7 @@ class m0001_user extends Migration
 
         try
         {
-            app()->db()->connection()->exec($sql);
+            $db->connection()->exec($sql);
         }catch(Exception $e){
             return false;
         }
@@ -49,7 +50,7 @@ class m0001_user extends Migration
 
         try
         {
-            app()->db()->insert($data, $this->table);
+            app()->db($this->connection)->insert($data, $this->table);
         }catch(Exception $e){
             return false;
         }

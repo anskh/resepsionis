@@ -1,3 +1,7 @@
+<?php
+use function PhpWeb\route_to;
+use function PhpWeb\app;
+?>
 <div class="container">
     <div class="row justify-content-end mb-3">
         <div class="col-auto">
@@ -6,7 +10,7 @@
                 </svg>Ke Daftar Pengguna</a>
         </div>
     </div>
-    <h3 class="py-3 text-center"><strong>Informasi Tamu BPS</strong></h3>
+    <h3 class="py-3 text-center"><strong>Informasi Pengguna</strong></h3>
     <div class="row">
         <div class="col-6 mx-auto">
             <?php $form = $model->form(); ?>

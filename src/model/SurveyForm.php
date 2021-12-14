@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Core\Model\FormModel;
+use PhpWeb\Model\FormModel;
 
 class SurveyForm extends FormModel
 {
@@ -15,6 +15,6 @@ class SurveyForm extends FormModel
     ];
 
     protected array $rules = [
-        'feedback' => self::RULE_REQUIRED
+        'feedback' => self::ATTR_RULE_REQUIRED
     ];
 }

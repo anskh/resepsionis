@@ -1,3 +1,9 @@
+<?php
+use function PhpWeb\route_to;
+use function PhpWeb\app;
+use function App\asset;
+?>
+
 <div class="container">
     <div class="row justify-content-end mb-3">
         <div class="col-auto">
@@ -34,8 +40,8 @@
                 </div>
             </div>
 
-            <?= $form->input('foto', 'hidden', ['id'=>'foto']) ?>
-            <img width="360" id="download-photo" src="<?= $model->foto ?>" class="img-fluid mb-3">
+            <?= $form->input('foto', 'hidden', ['id'=>'foto', 'value'=> $model->foto ?? '']) ?>
+            <img width="360" id="download-photo" src="<?= $model->foto ?? '' ?>" class="img-fluid mb-3">
 
             <p>Keterangan:<br><span class="text-danger mb-3">*</span> : Wajib diisi.</p>
             <div class="text-right">

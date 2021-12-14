@@ -7,6 +7,8 @@ namespace App\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+use function PhpWeb\view;
+
 class HomeController 
 {
     public function index(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface

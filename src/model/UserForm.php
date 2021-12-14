@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Core\Model\FormModel;
+use PhpWeb\Model\FormModel;
 
 class UserForm extends FormModel
 {
@@ -23,10 +23,10 @@ class UserForm extends FormModel
     ];
 
     protected array $rules = [
-        'name' => [self::RULE_REQUIRED, [self::RULE_MIN_LENGTH, 3]],
-        'email' => [self::RULE_EMAIL,[self::RULE_UNIQUE, 'user', 'email']],
-        'password' => self::RULE_REQUIRED,
-        'roles' => [self::RULE_REQUIRED, [self::RULE_IN_LIST, ['user','admin','user|admin','admin|user']]],
-        'user_csrf' => self::RULE_CSRF
+        'name' => [self::ATTR_RULE_REQUIRED, [self::ATTR_RULE_MIN_LENGTH, 3]],
+        'email' => [self::ATTR_RULE_EMAIL,[self::ATTR_RULE_UNIQUE, 'user', 'email']],
+        'password' => self::ATTR_RULE_REQUIRED,
+        'roles' => [self::ATTR_RULE_REQUIRED, [self::ATTR_RULE_IN_LIST, ['user','admin','user|admin','admin|user']]],
+        'user_csrf' => self::ATTR_RULE_CSRF
     ];
 }

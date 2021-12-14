@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use Core\Http\Session\FlashMessage;
+use PhpWeb\Http\Session\FlashMessage;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+
+use function PhpWeb\app;
+use function PhpWeb\route_to;
 
 class LogoutAction 
 {

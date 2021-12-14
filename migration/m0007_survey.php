@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use PhpWeb\Config\Config;
 use PhpWeb\Db\Migration;
+
+use function PhpWeb\app;
 
 class m0007_survey extends Migration
 {
@@ -11,7 +12,8 @@ class m0007_survey extends Migration
 
     public function up(): bool
     {
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . db_table($this->table) . '(
+        $db = app()->db($this->connection);
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $db->table($this->table) . '(
             id INT(11) NOT NULL AUTO_INCREMENT,  
             selected INT NOT NULL DEFAULT 4,
             feedback VARCHAR(255) NULL,
@@ -21,7 +23,7 @@ class m0007_survey extends Migration
 
         try
         {
-            app()->db()->exec($sql);
+            $db->connection()->exec($sql);
         }catch(Exception $e){
             return false;
         }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use Core\Model\DbModel;
+use PhpWeb\Model\DbModel;
 
 class Guest extends DbModel
 {
@@ -26,7 +26,7 @@ class Guest extends DbModel
 
     public static function table(): string
     {
-        return db_table('guest');
+        return 'guest';
     }
 
 }

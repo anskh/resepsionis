@@ -1,6 +1,9 @@
 <?php
 
-use Core\Config\Config;
+use PhpWeb\Config\Config;
+
+use function App\asset;
+use function PhpWeb\app;
 ?>
 <!doctype html>
 <html lang="en">
@@ -40,7 +43,7 @@ use Core\Config\Config;
 
     <div class="container">
         <header>
-            <?= $this->fetch('partial/header' . app()->config('application.view.file_extension')) ?>
+            <?= $this->fetch('partial/header' . app()->config(Config::ATTR_APP_CONFIG . '.' . Config::ATTR_APP_VIEW . '.' . Config::ATTR_VIEW_FILE_EXT)) ?>
         </header>
 
         <main role="main" class="py-5">
