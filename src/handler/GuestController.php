@@ -34,7 +34,7 @@ class GuestController
                     'js/jquery.dataTables.min.js',
                     'js/dataTables.bootstrap4.min.js'
                 ],
-                'script' => "$('#guesttable').DataTable();"
+                'script' => "$('#guesttable').DataTable({\"order\":[5,'desc']});"
             ]
         ]);
     }
@@ -78,7 +78,9 @@ class GuestController
                     }
                 }
 
-                if(!$model->hasError()){
+                if($model->hasError()){
+                    app()->session()->flash('app_info', 'Terdapat isian yang masih belum valid', FlashMessage::ERROR);
+                }else{
                     Guest::create([
                         'nama'=>$model->nama,
                         'asal'=>$model->asal,
@@ -92,6 +94,8 @@ class GuestController
 
                     return new RedirectResponse(route_to('list_guest'));
                 }
+            }else{
+                app()->session()->flash('app_info', 'Terdapat isian yang masih belum valid', FlashMessage::ERROR);
             }
         }
 

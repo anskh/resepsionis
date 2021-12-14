@@ -65,7 +65,7 @@ class AdminController
                     'js/dataTables.bootstrap4.min.js',
                     'js/delete.js'
                 ],
-                'script' => "$('#usertable').DataTable();"
+                'script' => "$('#usertable').DataTable({\"order\": [0,'asc']});"
             ]
         ]);
     }
@@ -90,6 +90,8 @@ class AdminController
                 }
                 
                 return new RedirectResponse(route_to('admin_list_user'));
+            }else{
+                app()->session()->flash('add_user', 'Terdapat isian yang belum valid', FlashMessage::ERROR);
             }
         }
 
@@ -128,6 +130,8 @@ class AdminController
                 }
                 
                 return new RedirectResponse(route_to('admin_list_user'));
+            }else{
+                app()->session()->flash('update_user', 'Terdapat isian yang belum valid', FlashMessage::ERROR);
             }
         }
 
@@ -236,6 +240,8 @@ class AdminController
                 }
                 
                 return new RedirectResponse(route_to('admin_list_guest'));
+            }else{
+                app()->session()->flash('update_guest', 'Terdapat isian yang belum valid.', FlashMessage::ERROR);
             }
         }
 
@@ -268,6 +274,8 @@ class AdminController
                 }
                 
                 return new RedirectResponse(route_to('admin_list_guest'));
+            }else{
+                app()->session()->flash('add_guest', 'Terdapat isian yang belum valid.', FlashMessage::ERROR);
             }
         }
 

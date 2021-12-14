@@ -14,6 +14,7 @@ function cameraStarted() {
     window.scrollTo(0, 0);
     $('#webcam').removeClass('d-none');
     $('#take-photo').removeClass('d-none');
+    $("#close-photo").addClass("d-none");
 }
 
 function cameraStopped() {
@@ -23,6 +24,7 @@ function cameraStopped() {
     $("#webcam-caption").html("Camera Off");
     $('#webcam').addClass('d-none');
     $('#take-photo').addClass('d-none');
+    $("#close-photo").removeClass("d-none");
 }
 
 function init_webcam() {
