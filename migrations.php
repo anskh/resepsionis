@@ -6,7 +6,6 @@ if(!defined("ROOT")) define("ROOT", __DIR__);
 
 require_once ROOT . "/vendor/autoload.php";
 
-use PhpWeb\Config\Config;
 use PhpWeb\Http\Kernel;
 
 if($argc > 1){
