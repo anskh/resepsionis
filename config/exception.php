@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
-use Core\Http\Session\FlashMessage;
+use PhpWeb\Http\Session\FlashMessage;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Response\RedirectResponse;
 use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
+
+use function PhpWeb\app;
+use function PhpWeb\view;
 
 return [
     // callable when unauthorized
@@ -32,7 +35,12 @@ return [
         app()->session()->flash('notfound_info', 'Halaman yang dituju tidak ditemukan.', FlashMessage::ERROR);
         
         return view('notfound', new Response(), 'error');
-    }
+    },
+
+    Config::ATTR_EXCEPTION_LOG => [
+        Config::ATTR_EXCEPTION_LOG_NAME => 'app',
+        Config::ATTR_EXCEPTION_LOG_FILE => ROOT . '/writeable/log/app.log'
+    ]
 
     // callable when error
     //Config::ATTR_EXCEPTION_THROWABLE => static function(Throwable $exception){

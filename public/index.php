@@ -15,6 +15,7 @@ use Laminas\Diactoros\{
 };
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use PhpWeb\Config\Config;
+use PhpWeb\Config\Environment;
 use PhpWeb\Http\Kernel;
 use WoohooLabs\Harmony\Middleware\{
     DispatcherMiddleware,
@@ -23,7 +24,7 @@ use WoohooLabs\Harmony\Middleware\{
 };
 
 // Initializing config
-Kernel::init(ROOT . '/config');
+Kernel::init(ROOT . '/config', Environment::DEVELOPMENT);
 
 // Initializing the router
 $router = FastRoute\simpleDispatcher(static function (FastRoute\RouteCollector $r) {
