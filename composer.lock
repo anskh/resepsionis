@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce61bbd257ffaff98d1079cad4f02593",
+    "content-hash": "e104b46f28d4bb9bc8055b2ca6f0933b",
     "packages": [
         {
             "name": "anskh/phpweb",
-            "version": "v1.0.0-alpha",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anskh/phpweb.git",
-                "reference": "fb859e7325bc71b67f6f6337c0ebacaf6bb803ca"
+                "reference": "9f5d0d05f7626216098ef66ea2b502b3b4313183"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anskh/phpweb/zipball/fb859e7325bc71b67f6f6337c0ebacaf6bb803ca",
-                "reference": "fb859e7325bc71b67f6f6337c0ebacaf6bb803ca",
+                "url": "https://api.github.com/repos/anskh/phpweb/zipball/9f5d0d05f7626216098ef66ea2b502b3b4313183",
+                "reference": "9f5d0d05f7626216098ef66ea2b502b3b4313183",
                 "shasum": ""
             },
             "require": {
@@ -55,9 +55,9 @@
             "description": "Simple PHP Website Foundation",
             "support": {
                 "issues": "https://github.com/anskh/phpweb/issues",
-                "source": "https://github.com/anskh/phpweb/tree/v1.0.0-alpha"
+                "source": "https://github.com/anskh/phpweb/tree/v1.0.0"
             },
-            "time": "2021-12-13T03:46:36+00:00"
+            "time": "2021-12-14T09:54:14+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -898,9 +898,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "anskh/phpweb": 15
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
