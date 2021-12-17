@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "anskh/phpweb",
-            "version": "v1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anskh/phpweb.git",
-                "reference": "9f5d0d05f7626216098ef66ea2b502b3b4313183"
+                "reference": "dff0e27499eda5ca1d3702a6ce4ac695bee95d1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anskh/phpweb/zipball/9f5d0d05f7626216098ef66ea2b502b3b4313183",
-                "reference": "9f5d0d05f7626216098ef66ea2b502b3b4313183",
+                "url": "https://api.github.com/repos/anskh/phpweb/zipball/dff0e27499eda5ca1d3702a6ce4ac695bee95d1a",
+                "reference": "dff0e27499eda5ca1d3702a6ce4ac695bee95d1a",
                 "shasum": ""
             },
             "require": {
@@ -55,9 +55,9 @@
             "description": "Simple PHP Website Foundation",
             "support": {
                 "issues": "https://github.com/anskh/phpweb/issues",
-                "source": "https://github.com/anskh/phpweb/tree/v1.0.0"
+                "source": "https://github.com/anskh/phpweb/tree/1.0.2"
             },
-            "time": "2021-12-14T09:54:14+00:00"
+            "time": "2021-12-16T10:02:23+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
