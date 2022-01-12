@@ -14,7 +14,6 @@ use Laminas\Diactoros\{
     ServerRequestFactory
 };
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
-use Anskh\PhpWeb\Http\Config;
 use Anskh\PhpWeb\Http\Environment;
 use Anskh\PhpWeb\Http\Kernel;
 use WoohooLabs\Harmony\Middleware\{

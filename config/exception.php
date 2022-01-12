@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Anskh\PhpWeb\Http\Session\FlashMessage;
 use Anskh\PhpWeb\Http\AppException;
 use Laminas\Diactoros\Response;
-use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 
 return [
