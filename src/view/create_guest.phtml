@@ -1,14 +1,7 @@
-<?php
-
-use function PhpWeb\route_to;
-use function PhpWeb\app;
-use function App\asset;
-?>
-
 <div class="container">
     <div class="row justify-content-end mb-3">
         <div class="col-auto">
-            <a href="<?= route_to('list_guest') ?>" class="btn btn-success btn-block p-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
+            <a href="<?= my_route_to('list_guest') ?>" class="btn btn-success btn-block p-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
                     <path d="M8.6620483,17.699996L32,17.699996 32,21.116015 8.6620483,21.116015z M2.6040039,16.805007C4.0390015,16.805007 5.2059937,17.97502 5.2059937,19.410996 5.2059937,20.851001 4.0390015,22.006 2.6040039,22.006 1.1640015,22.006 0,20.851001 0,19.410996 0,17.97502 1.1640015,16.805007 2.6040039,16.805007z M8.6620483,8.984993L32,8.984993 32,12.401011 8.6620483,12.401011z M2.6040039,8.0849981C4.0390015,8.0849981 5.2059937,9.2500076 5.2059937,10.690011 5.2059937,12.130015 4.0390015,13.290997 2.6040039,13.290997 1.1640015,13.290997 0,12.130015 0,10.690011 0,9.2500076 1.1640015,8.0849981 2.6040039,8.0849981z M8.6620483,0.82498215L32,0.82498215 32,4.2410006 8.6620483,4.2410006z M2.6040039,0C4.0390015,1.6889317E-08 5.2059937,1.1600046 5.2059937,2.6049824 5.2059937,4.0409884 4.0390015,5.2059979 2.6040039,5.2059979 1.1640015,5.2059979 0,4.0409884 0,2.6049824 0,1.1600046 1.1640015,1.6889317E-08 2.6040039,0z" />
                 </svg>Ke Daftar Tamu</a>
         </div>
@@ -17,7 +10,7 @@ use function App\asset;
     <div class="row">
         <div class="col-6 mx-auto">
             <?php $form = $model->form(); ?>
-            <?= $form->begin(route_to('create_guest'), 'POST') ?>
+            <?= $form->begin(my_route_to('create_guest'), 'POST') ?>
             <?php if ($model->hasError('form')) : ?>
                 <div class="alert alert-danger">
                     <?php foreach ($model->getError('form') as $key => $error) {
@@ -25,12 +18,28 @@ use function App\asset;
                     } ?>
                 </div>
             <?php endif; ?>
-            <?= $form->input('create_guest_csrf', 'hidden', ['value' => app()->session()->generateCsrfToken('create_guest_csrf')]) ?>
-            <?= $form->field('nama', 'form-group mb-3') ?>
-            <?= $form->field('asal', 'form-group mb-3') ?>
-            <?= $form->field('keperluan', 'form-group mb-3') ?>
-            <?= $form->field('email', 'form-group mb-3')->emailField() ?>
-            <?= $form->field('hp', 'form-group')->telephoneField() ?>
+            <?= $form->input('create_guest_csrf', 'hidden', ['value' => my_app()->session()->generateCsrfToken('create_guest_csrf')]) ?>
+            <div class="form-group mb-3">
+                <label for="nama"><?= $model->getLabel('nama') ?></label>
+                <?= $form->field('nama', ['class'=>'form-control']) ?>
+            </div>
+            <div class="form-group mb-3">
+                <label for="asal"><?= $model->getLabel('asal') ?></label>
+                <?= $form->field('asal', ['class'=>'form-control']) ?>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="keperluan"><?= $model->getLabel('keperluan') ?></label>
+                <?= $form->field('keperluan', ['class'=>'form-control']) ?>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email"><?= $model->getLabel('email') ?></label>
+                <?= $form->field('email', ['class'=>'form-control'])->emailField() ?>
+            </div>
+            <div class="form-group mb-3">
+                <label for="hp"><?= $model->getLabel('hp') ?></label>
+                <?= $form->field('hp', ['class'=>'form-control'])->telephoneField() ?>
+            </div>
 
             <div class="row">
                 <div class="col">
@@ -81,18 +90,18 @@ use function App\asset;
             </div>
             <div class="modal-footer">
                 <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <a title="Ambil Foto" href="#" id="take-photo" class="btn btn-primary btn-block py-3 d-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" class="mr-3" focusable="false">
-                                <path d="M16.417994,7.7930131C12.833993,7.7930131 9.9179935,10.704013 9.9179935,14.283013 9.9179935,17.862013 12.833993,20.774014 16.417994,20.774014 20.001993,20.774014 22.917994,17.862013 22.917994,14.283013 22.917994,10.704013 20.001993,7.7930131 16.417994,7.7930131z M26.769007,6.7930036C27.321007,6.7930036 27.769007,7.2410035 27.769007,7.7930036 27.769007,8.3450036 27.321007,8.7930036 26.769007,8.7930036 26.217007,8.7930036 25.769007,8.3450036 25.769007,7.7930036 25.769007,7.2410035 26.217007,6.7930036 26.769007,6.7930036z M16.417994,5.7830133C21.104994,5.7830133 24.917994,9.5970132 24.917994,14.283013 24.917994,18.970013 21.104994,22.783013 16.417994,22.783013 14.367431,22.783013 12.484158,22.053182 11.014286,20.83963L10.930353,20.766903 11.128745,20.995876C12.68473,22.707597 14.928032,23.784008 17.417999,23.784008 22.104996,23.784008 25.917999,19.970013 25.917999,15.284008 25.917999,14.491985 25.800995,13.728008 25.597,13.000011L32,13.000011 32,25.000011 0,25.000011 0,13.000011 8.0147734,13.000011 8.0161095,12.990492C8.6406126,8.9154096,12.1704,5.7830133,16.417994,5.7830133z M10.554001,0L21.445002,0 23.398001,3 32,3 32,13 30,13 30,5 22.314001,5 20.361,2 11.638,2 9.6850004,5 2.000001,5 2.000001,13 9.5367432E-07,13 9.5367432E-07,3 8.6010008,3z" />
-                            </svg>Ambil Foto</a>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <a title="Ambil Foto" href="#" id="take-photo" class="btn btn-primary btn-block py-3 d-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" class="mr-3" focusable="false">
+                                    <path d="M16.417994,7.7930131C12.833993,7.7930131 9.9179935,10.704013 9.9179935,14.283013 9.9179935,17.862013 12.833993,20.774014 16.417994,20.774014 20.001993,20.774014 22.917994,17.862013 22.917994,14.283013 22.917994,10.704013 20.001993,7.7930131 16.417994,7.7930131z M26.769007,6.7930036C27.321007,6.7930036 27.769007,7.2410035 27.769007,7.7930036 27.769007,8.3450036 27.321007,8.7930036 26.769007,8.7930036 26.217007,8.7930036 25.769007,8.3450036 25.769007,7.7930036 25.769007,7.2410035 26.217007,6.7930036 26.769007,6.7930036z M16.417994,5.7830133C21.104994,5.7830133 24.917994,9.5970132 24.917994,14.283013 24.917994,18.970013 21.104994,22.783013 16.417994,22.783013 14.367431,22.783013 12.484158,22.053182 11.014286,20.83963L10.930353,20.766903 11.128745,20.995876C12.68473,22.707597 14.928032,23.784008 17.417999,23.784008 22.104996,23.784008 25.917999,19.970013 25.917999,15.284008 25.917999,14.491985 25.800995,13.728008 25.597,13.000011L32,13.000011 32,25.000011 0,25.000011 0,13.000011 8.0147734,13.000011 8.0161095,12.990492C8.6406126,8.9154096,12.1704,5.7830133,16.417994,5.7830133z M10.554001,0L21.445002,0 23.398001,3 32,3 32,13 30,13 30,5 22.314001,5 20.361,2 11.638,2 9.6850004,5 2.000001,5 2.000001,13 9.5367432E-07,13 9.5367432E-07,3 8.6010008,3z" />
+                                </svg>Ambil Foto</a>
+                        </div>
                     </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                    <button type="button" class="btn btn-danger py-3 btn-block" id="close-photo" data-dismiss="modal">Tutup</button>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-danger py-3 btn-block" id="close-photo" data-dismiss="modal">Tutup</button>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "anskh/phpweb",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anskh/phpweb.git",
-                "reference": "dff0e27499eda5ca1d3702a6ce4ac695bee95d1a"
+                "reference": "c76d9eefa06334419d74e30441cd040d959e240c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anskh/phpweb/zipball/dff0e27499eda5ca1d3702a6ce4ac695bee95d1a",
-                "reference": "dff0e27499eda5ca1d3702a6ce4ac695bee95d1a",
+                "url": "https://api.github.com/repos/anskh/phpweb/zipball/c76d9eefa06334419d74e30441cd040d959e240c",
+                "reference": "c76d9eefa06334419d74e30441cd040d959e240c",
                 "shasum": ""
             },
             "require": {
@@ -30,13 +30,13 @@
                 "woohoolabs/harmony": "^7.1"
             },
             "require-dev": {
-                "filp/whoops": "^2.14",
-                "phpunit/phpunit": "^9.5"
+                "filp/whoops": "^2.14"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "PhpWeb\\": "src/"
+                    "Anskh\\PhpWeb\\": "src/",
+                    "Anskh\\Example\\": "example/"
                 },
                 "files": [
                     "src/functions.php"
@@ -55,9 +55,9 @@
             "description": "Simple PHP Website Foundation",
             "support": {
                 "issues": "https://github.com/anskh/phpweb/issues",
-                "source": "https://github.com/anskh/phpweb/tree/1.0.2"
+                "source": "https://github.com/anskh/phpweb/tree/1.0.4"
             },
-            "time": "2021-12-16T10:02:23+00:00"
+            "time": "2022-01-11T08:06:05+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -826,16 +826,16 @@
     "packages-dev": [
         {
             "name": "filp/whoops",
-            "version": "2.14.4",
+            "version": "2.14.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "f056f1fe935d9ed86e698905a957334029899895"
+                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/f056f1fe935d9ed86e698905a957334029899895",
-                "reference": "f056f1fe935d9ed86e698905a957334029899895",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
+                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +885,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.14.4"
+                "source": "https://github.com/filp/whoops/tree/2.14.5"
             },
             "funding": [
                 {
@@ -893,7 +893,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-03T12:00:00+00:00"
+            "time": "2022-01-07T12:00:00+00:00"
         }
     ],
     "aliases": [],

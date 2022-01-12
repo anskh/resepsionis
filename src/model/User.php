@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use PhpWeb\Model\DbModel;
+use Anskh\PhpWeb\Model\DbModel;
 
 class User extends DbModel
 {

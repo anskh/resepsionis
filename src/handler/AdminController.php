@@ -11,30 +11,25 @@ use App\Model\NewGuestFormAdmin;
 use App\Model\Survey;
 use App\Model\User;
 use App\Model\UserForm;
-use PhpWeb\Http\Session\FlashMessage;
-use PhpWeb\Http\Session\Session;
-use PhpWeb\Model\FormModel;
+use Anskh\PhpWeb\Http\Session\FlashMessage;
+use Anskh\PhpWeb\Http\Session\Session;
+use Anskh\PhpWeb\Model\FormModel;
 use Laminas\Diactoros\Response\RedirectResponse;
-use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-
-use function PhpWeb\view;
-use function PhpWeb\app;
-use function PhpWeb\route_to;
 
 class AdminController 
 {
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
-        return view('admin', $response, 'admin', [
+        return my_view('admin', $response, 'layout/admin', [
             'title' => 'Halaman Administrasi'
         ]);
     }
 
     public function listGuest(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        return view('admin_list_guest', $response, 'admin', [
+        return my_view('admin_list_guest', $response, 'layout/admin', [
             'title' => 'Halaman Administrasi Tamu',
             'data' => Guest::all('id,nama,asal,keperluan,email,hp,tanggal'),
             'assets' => [
@@ -53,7 +48,7 @@ class AdminController
 
     public function listUser(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        return view('admin_list_user', $response, 'admin', [
+        return my_view('admin_list_user', $response, 'layout/admin', [
             'title' => 'Halaman Administrasi Pengguna',
             'data'=>User::all(),
             'assets' => [
@@ -79,23 +74,23 @@ class AdminController
                 if(User::create([
                     'name'=>$model->name,
                     'email'=>$model->email,
-                    'password'=>password_hash($model->password, Config::HASHING_ALGORITHM) ,
+                    'password'=>password_hash($model->password, PASSWORD_BCRYPT) ,
                     'token'=>Session::generateToken(),
                     'roles'=>$model->roles,
                     'create_at'=>time()
                 ]) > 0){
-                    app()->session()->flash('add_user', 'Data berhasil ditambahkan', FlashMessage::SUCCESS);
+                    my_app()->session()->flash('add_user', 'Data berhasil ditambahkan', FlashMessage::SUCCESS);
                 }else{
-                    app()->session()->flash('add_user', 'Data gagal ditambahkan', FlashMessage::ERROR);
+                    my_app()->session()->flash('add_user', 'Data gagal ditambahkan', FlashMessage::ERROR);
                 }
                 
-                return new RedirectResponse(route_to('admin_list_user'));
+                return new RedirectResponse(my_route_to('admin_list_user'));
             }else{
-                app()->session()->flash('add_user', 'Terdapat isian yang belum valid', FlashMessage::ERROR);
+                my_app()->session()->flash('add_user', 'Terdapat isian yang belum valid', FlashMessage::ERROR);
             }
         }
 
-        return view('admin_create_user', $response, 'admin', [
+        return my_view('admin_create_user', $response, 'layout/admin', [
             'title' => 'Halaman Tambah pengguna',
             'model'=>$model
         ]);
@@ -110,7 +105,7 @@ class AdminController
         $rules = [
             'name' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_MIN_LENGTH, 3]],
             'email' => [FormModel::ATTR_RULE_EMAIL,[FormModel::ATTR_RULE_UNIQUE, 'user', 'email', $model->email]],
-            'roles' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_IN_LIST, ['user','admin','user|admin','admin|user']]],
+            'roles' => [FormModel::ATTR_RULE_REQUIRED, [FormModel::ATTR_RULE_IN_LIST, 'user','admin','user|admin','admin|user']],
             'user_csrf' => FormModel::ATTR_RULE_CSRF
         ];
 
@@ -124,18 +119,18 @@ class AdminController
                     'roles'=>$model->roles,
                     'update_at'=> time()
                 ], ['id =' => $id]) > 0){
-                    app()->session()->flash('update_user', 'Ubah data berhasil.', FlashMessage::SUCCESS);
+                    my_app()->session()->flash('update_user', 'Ubah data berhasil.', FlashMessage::SUCCESS);
                 }else{
-                    app()->session()->flash('update_user', 'Tidak ada perubahan data.', FlashMessage::INFO);
+                    my_app()->session()->flash('update_user', 'Tidak ada perubahan data.', FlashMessage::INFO);
                 }
                 
-                return new RedirectResponse(route_to('admin_list_user'));
+                return new RedirectResponse(my_route_to('admin_list_user'));
             }else{
-                app()->session()->flash('update_user', 'Terdapat isian yang belum valid', FlashMessage::ERROR);
+                my_app()->session()->flash('update_user', 'Terdapat isian yang belum valid', FlashMessage::ERROR);
             }
         }
 
-        return view('admin_edit_user', $response, 'admin', [
+        return my_view('admin_edit_user', $response, 'layout/admin', [
             'title' => 'Halaman Ubah Data Pengguna',
             'model'=>$model
         ]);
@@ -152,7 +147,7 @@ class AdminController
 
                 $response->getBody()->write('OK');
 
-                app()->session()->flash('delete_user', 'Hapus data berhasil.', FlashMessage::SUCCESS);
+                my_app()->session()->flash('delete_user', 'Hapus data berhasil.', FlashMessage::SUCCESS);
 
                 return $response;
             }
@@ -160,14 +155,14 @@ class AdminController
 
         $response->getBody()->write('ERROR');
 
-        app()->session()->flash('delete_user', 'Hapus data gagal.', FlashMessage::ERROR);
+        my_app()->session()->flash('delete_user', 'Hapus data gagal.', FlashMessage::ERROR);
 
         return $response;
     }
 
     public function listSurvey(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        return view('admin_list_survey', $response, 'admin', [
+        return my_view('admin_list_survey', $response, 'layout/admin', [
             'title' => 'Halaman Administrasi Survei Kepuasan',
             'data' => Survey::all(),
             'assets' => [
@@ -196,7 +191,7 @@ class AdminController
 
                 $response->getBody()->write('OK');
 
-                app()->session()->flash('delete_survey', 'Hapus data berhasil.', FlashMessage::SUCCESS);
+                my_app()->session()->flash('delete_survey', 'Hapus data berhasil.', FlashMessage::SUCCESS);
 
                 return $response;
             }
@@ -204,7 +199,7 @@ class AdminController
 
         $response->getBody()->write('ERROR');
 
-        app()->session()->flash('delete_survey', 'Hapus data gagal.', FlashMessage::ERROR);
+        my_app()->session()->flash('delete_survey', 'Hapus data gagal.', FlashMessage::ERROR);
 
         return $response;
     }
@@ -213,7 +208,7 @@ class AdminController
     {
         $id = $request->getAttribute('id');
 
-        return view('admin_view_guest', $response, 'admin', [
+        return my_view('admin_view_guest', $response, 'layout/admin', [
             'title' => 'Halaman Administrasi Survei Kepuasan',
             'guest'=> Guest::getRow($id)
         ]);
@@ -231,21 +226,21 @@ class AdminController
                     'nama'=>$model->nama,
                     'asal'=>$model->asal,
                     'keperluan'=>$model->keperluan,
-                    'email'=>$model->email?? null,
+                    'email'=>$model->email ?? null,
                     'hp'=>$model->hp
                 ], ['id =' => $id]) > 0){
-                    app()->session()->flash('update_guest', 'Ubah data berhasil.', FlashMessage::SUCCESS);
+                    my_app()->session()->flashSuccess('update_guest', 'Ubah data berhasil.');
                 }else{
-                    app()->session()->flash('update_guest', 'Tidak ada perubahan data.', FlashMessage::INFO);
+                    my_app()->session()->flash('update_guest', 'Tidak ada perubahan data.');
                 }
                 
-                return new RedirectResponse(route_to('admin_list_guest'));
+                return new RedirectResponse(my_route_to('admin_list_guest'));
             }else{
-                app()->session()->flash('update_guest', 'Terdapat isian yang belum valid.', FlashMessage::ERROR);
+                my_app()->session()->flashError('update_guest', 'Terdapat isian yang belum valid.');
             }
         }
 
-        return view('admin_edit_guest', $response, 'admin', [
+        return my_view('admin_edit_guest', $response, 'layout/admin', [
             'title' => 'Halaman Administrasi Survei Kepuasan',
             'model'=>$model
         ]);
@@ -268,18 +263,18 @@ class AdminController
                     'hp'=>$model->hp,
                     'tanggal'=>strtotime($model->tanggal)
                 ]) > 0){
-                    app()->session()->flash('add_guest', 'Data berhasil ditambahkan', FlashMessage::SUCCESS);
+                    my_app()->session()->flashSuccess('add_guest', 'Data berhasil ditambahkan');
                 }else{
-                    app()->session()->flash('add_guest', 'Data gagal ditambahkan', FlashMessage::ERROR);
+                    my_app()->session()->flashError('add_guest', 'Data gagal ditambahkan');
                 }
                 
-                return new RedirectResponse(route_to('admin_list_guest'));
+                return new RedirectResponse(my_route_to('admin_list_guest'));
             }else{
-                app()->session()->flash('add_guest', 'Terdapat isian yang belum valid.', FlashMessage::ERROR);
+                my_app()->session()->flashError('add_guest', 'Terdapat isian yang belum valid.');
             }
         }
 
-        return view('admin_create_guest', $response, 'admin', [
+        return my_view('admin_create_guest', $response, 'layout/admin', [
             'title' => 'Halaman Administrasi Survei Kepuasan',
             'guest'=> Guest::getRow($id),
             'model'=>$model
@@ -297,7 +292,7 @@ class AdminController
 
                 $response->getBody()->write('OK');
 
-                app()->session()->flash('delete_guest', 'Hapus data berhasil.', FlashMessage::SUCCESS);
+                my_app()->session()->flashSuccess('delete_guest', 'Hapus data berhasil.');
 
                 return $response;
             }
@@ -305,7 +300,7 @@ class AdminController
 
         $response->getBody()->write('ERROR');
 
-        app()->session()->flash('delete_guest', 'Hapus data gagal.', FlashMessage::ERROR);
+        my_app()->session()->flashError('delete_guest', 'Hapus data gagal.');
 
         return $response;
     }

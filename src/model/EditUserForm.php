@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use PhpWeb\Model\FormModel;
+use Anskh\PhpWeb\Model\FormModel;
 
 class EditUserForm extends FormModel
 {

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use PhpWeb\Model\FormModel;
+use Anskh\PhpWeb\Http\App;
+use Anskh\PhpWeb\Http\Auth\AccessControl;
+use Anskh\PhpWeb\Model\FormModel;
 
 class UserForm extends FormModel
 {
@@ -24,9 +26,9 @@ class UserForm extends FormModel
 
     protected array $rules = [
         'name' => [self::ATTR_RULE_REQUIRED, [self::ATTR_RULE_MIN_LENGTH, 3]],
-        'email' => [self::ATTR_RULE_EMAIL,[self::ATTR_RULE_UNIQUE, 'user', 'email']],
+        'email' => [self::ATTR_RULE_EMAIL,[self::ATTR_RULE_UNIQUE, 'user','email']],
         'password' => self::ATTR_RULE_REQUIRED,
-        'roles' => [self::ATTR_RULE_REQUIRED, [self::ATTR_RULE_IN_LIST, ['user','admin','user|admin','admin|user']]],
+        'roles' => [self::ATTR_RULE_REQUIRED, [self::ATTR_RULE_IN_LIST, 'user','admin','user|admin','admin|user']],
         'user_csrf' => self::ATTR_RULE_CSRF
     ];
 }

@@ -1,12 +1,8 @@
-<?php
-use function PhpWeb\route_to;
-use function PhpWeb\app;
-?>
 <div class="container">
     <h3 class="py-3 text-center"><strong>Administrasi Pengguna Resepsionis</strong></h3>
     <div class="row justify-content-end mb-5">
         <div class="col-auto">
-            <a href="<?= route_to('admin_create_user') ?>" class="btn btn-success btn-block p-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
+            <a href="<?= my_route_to('admin_create_user') ?>" class="btn btn-success btn-block p-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
                     <path d="M12.126984,0L19.872009,0 19.872009,12.128 32,12.128 32,19.872999 19.872009,19.872999 19.872009,31.999 12.126984,31.999 12.126984,19.872999 0,19.872999 0,12.128 12.126984,12.128z" />
                 </svg>Tambah Pengguna</a>
         </div>
@@ -29,12 +25,12 @@ use function PhpWeb\app;
                             <td class="align-middle"><?= $row['email'] ?></td>
                             <td class="align-middle"><?= $row['roles'] ?></td>
                             <td>
-                                <?php if(app()->user()->getId() != $row['id']): ?>
+                                <?php if(my_app()->user()->getId() != $row['id']): ?>
                                 <div class="btn-group text-center" role="group">
-                                    <a title="Ubah" href="<?=route_to('admin_edit_user', ['id'=>$row['id']])?>" class="btn btn-outline-warning"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" focusable="false">
+                                    <a title="Ubah" href="<?=my_route_to('admin_edit_user', ['id'=>$row['id']])?>" class="btn btn-outline-warning"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" focusable="false">
                                             <path d="M0,22.691865L9.6958332,27.864942 0.24500618,32.000013z M8.8988495,6.3116251L18.869686,12.034729 11.211813,25.370919 10.644821,23.665877 7.7198686,23.364879 7.2188854,21.531844 4.3549361,21.429853 3.5479436,19.422835 1.2459807,19.647815z M13.690775,0.00052993685C13.965764,-0.0064584891,14.233765,0.055554115,14.474758,0.19355655L21.534634,4.2476002C22.392622,4.7375976,22.586618,6.0146238,21.968632,7.0966398L21.126636,8.5616571 10.95782,2.7255753 11.799801,1.2555529C12.243793,0.48054798,12.988775,0.017528671,13.690775,0.00052993685z" />
                                         </svg></a>
-                                    <a title="Hapus" href="#" onclick="delete_record('<?=route_to('admin_remove_user', ['id'=>$row['id']])?>')" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" focusable="false">
+                                    <a title="Hapus" href="#" onclick="delete_record('<?=my_route_to('admin_remove_user', ['id'=>$row['id']])?>')" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" focusable="false">
                                             <path d="M2.0050016,10.291992L6.2790426,10.291992 6.2790426,28.350006 9.5599821,28.350006 9.5599821,10.291992 14.490027,10.291992 14.490027,28.350006 17.772981,28.350006 17.772981,10.291992 22.04696,10.291992 22.04696,32 2.0050016,32z M0,3.5249939L24.053,3.5249939 24.053,6.6329956 0,6.6329956z M6.5170182,0L17.535981,0 17.535981,2.8399963 6.5170182,2.8399963z" />
                                         </svg></a>
                                 </div>

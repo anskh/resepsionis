@@ -1,10 +1,4 @@
-<?php
-
-use PhpWeb\Config\Config;
-
-use function App\asset;
-use function PhpWeb\app;
-?>
+<?php use Anskh\PhpWeb\Http\App; ?>
 <!doctype html>
 <html lang="en">
 
@@ -43,7 +37,7 @@ use function PhpWeb\app;
 
     <div class="container">
         <header>
-            <?= $this->fetch('partial/header' . app()->config(Config::ATTR_APP_CONFIG . '.' . Config::ATTR_APP_VIEW . '.' . Config::ATTR_VIEW_FILE_EXT)) ?>
+            <?= $this->fetch('partial/header' . my_app()->getAttribute(App::ATTR_VIEW_EXT)) ?>
         </header>
 
         <main role="main" class="py-5">
@@ -54,7 +48,7 @@ use function PhpWeb\app;
 
         <footer class="footer text-center border-top border-primary py-2">
             <div class="container">
-                <span class="text-dark"><?= app()->config('application.name') ?> versi <?= app()->config('application.version') ?> &copy; 2021 - <?= app()->config('application.vendor') ?></span>
+                <span class="text-dark"><?= my_app()->getAttribute(App::ATTR_NAME) ?> versi <?= my_app()->getAttribute(App::ATTR_VERSION) ?> &copy; 2021 - <?= my_app()->getAttribute(App::ATTR_VENDOR) ?></span>
             </div>
         </footer>
     </div>
@@ -74,8 +68,8 @@ use function PhpWeb\app;
 
     <script>
         $(document).ready(function() {
-            <?php if (app()->session()->hasFlash()) {
-                foreach (app()->session()->flash() as $flash) {
+            <?php if (my_app()->session()->hasFlash()) {
+                foreach (my_app()->session()->flash() as $flash) {
                     echo $flash;
                 }
             } ?>

@@ -7,13 +7,11 @@ namespace App\Handler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-use function PhpWeb\view;
-
 class HomeController 
 {
     public function index(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        return view('home', $response, 'main', [
+        return my_view('home', $response, 'layout/main', [
             'title' => 'Resepsionis BPS'
         ]);
     }

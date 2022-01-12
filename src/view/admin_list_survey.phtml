@@ -1,7 +1,3 @@
-<?php
-use function PhpWeb\route_to;
-use function App\kepuasan;
-?>
 <div class="container">
     <h3 class="py-3 mb-3 text-center"><strong>Administrasi Hasil Survei</strong></h3>
     <div class="row justify-content-center">
@@ -21,7 +17,7 @@ use function App\kepuasan;
                             <td class="align-middle"><?= $row['feedback'] ?></td>
                             <td>
                                 <div class="btn-group text-center" role="group">
-                                    <a title="Hapus" href="#" onclick="delete_record('<?=route_to('admin_remove_survey', ['id'=>$row['id']])?>')" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" focusable="false">
+                                    <a title="Hapus" href="#" onclick="delete_record('<?= my_route_to('admin_remove_survey', ['id' => $row['id']]) ?>')" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" stroke="none" focusable="false">
                                             <path d="M2.0050016,10.291992L6.2790426,10.291992 6.2790426,28.350006 9.5599821,28.350006 9.5599821,10.291992 14.490027,10.291992 14.490027,28.350006 17.772981,28.350006 17.772981,10.291992 22.04696,10.291992 22.04696,32 2.0050016,32z M0,3.5249939L24.053,3.5249939 24.053,6.6329956 0,6.6329956z M6.5170182,0L17.535981,0 17.535981,2.8399963 6.5170182,2.8399963z" />
                                         </svg></a>
                                 </div>
@@ -31,7 +27,7 @@ use function App\kepuasan;
                 </tbody>
                 <tfoot>
                     <tr>
-                    <th>Kepuasan</th>
+                        <th>Kepuasan</th>
                         <th>Catatan</th>
                         <th>Aksi</th>
                     </tr>

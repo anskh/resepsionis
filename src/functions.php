@@ -2,20 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App;
-
-use Exception;
-
-use function PhpWeb\app;
-use function PhpWeb\base_url;
-
-if(!function_exists('App\asset')){
+if(!function_exists('asset')){
     function asset(string $file): string
     {
-        return base_url('assets/' . $file);
+        return my_base_url('assets/' . $file);
     }
 }
-if (!function_exists('App\base64_photo')) {
+if (!function_exists('base64_photo')) {
     function base64_photo(?string $fileName = null): string
     {
         if (empty($fileName)) {
@@ -39,7 +32,7 @@ if (!function_exists('App\base64_photo')) {
     }
 }
 
-if (!function_exists('App\save_base64_photo')) {
+if (!function_exists('save_base64_photo')) {
     function save_base64_photo(string $data): ?string
     {
         if (empty($data)) {
@@ -88,7 +81,7 @@ if (!function_exists('App\save_base64_photo')) {
 }
 
 
-if(!function_exists('App\kepuasan')){
+if(!function_exists('kepuasan')){
     function kepuasan(string $hasil): string
     {
         switch($hasil){
@@ -109,14 +102,14 @@ if(!function_exists('App\kepuasan')){
         }
     }
 }
-if (!function_exists('App\remote_photo')) {
+if (!function_exists('remote_photo')) {
     function remote_photo(string $file): string
     {
-        return base_url('uploads/photos/' . $file);
+        return my_base_url('uploads/photos/' . $file);
     }
 }
 
-if (!function_exists('App\file_photo')) {
+if (!function_exists('file_photo')) {
     function file_photo(string $file): string
     {
         return ROOT . '/public/uploads/photos/' . $file;

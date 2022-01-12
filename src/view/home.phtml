@@ -1,12 +1,8 @@
-<?php
-
-use function PhpWeb\route_to;
-?>
 <div class="container text-center">
     <h1 class="mb-5">Selamat Datang di Resepsionis BPS</h1>
     <p class="lead text-muted mb-5">Mohon isi buku tamu ketika Anda datang dan survei kepuasan ketika Anda hendak keluar. <br>Terimakasih atas partisipasi dan dukungan yang diberikan.</p>
     <div class="row justify-content-center mb-5">
-        <div class="col-4"><a href="<?= route_to('list_guest') ?>" class="btn btn-primary btn-block py-5"><span class="h4">Buku Tamu</span></a></div>
-        <div class="col-4"><a href="<?= route_to('create_survey') ?>" class="btn btn-primary btn-block py-5"><span class="h4">Survei Kepuasan</span></a></div>
+        <div class="col-4"><a href="<?= my_route_to('list_guest') ?>" class="btn btn-primary btn-block py-5"><span class="h4">Buku Tamu</span></a></div>
+        <div class="col-4"><a href="<?= my_route_to('create_survey') ?>" class="btn btn-primary btn-block py-5"><span class="h4">Survei Kepuasan</span></a></div>
     </div>
 </div>

@@ -1,34 +1,35 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-4">
-            <?php
-
-use function PhpWeb\route_to; 
-use function PhpWeb\app;
-
-$form = $login->form(); ?>
-            <?=$form->begin(route_to('login'), 'POST')?>
-                <div class="text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="mb-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
-                        <path d="M15.827007,0C20.406003,0 24.346007,3.1960449 24.346007,9.2930298 24.346007,13.259033 22.542005,17.289001 20.180997,19.791992L20.193005,19.791992C19.287,22.627014 20.736997,23.299011 20.966,23.376038 25.997008,25.090027 31.651002,28.317993 31.651002,31.626038L31.651002,32 0,32 0,31.626038C8.034749E-08,28.414001 5.6260008,25.161011 10.421,23.376038 10.766993,23.244995 12.422999,22.317017 11.497004,19.817993 9.1220035,17.321045 7.3279971,13.275024 7.3279971,9.2930298 7.3279971,3.1960449 11.245006,0 15.827007,0z" />
-                    </svg>
+            <?php $form = $login->form(); ?>
+            <?= $form->begin(my_route_to('login'), 'POST') ?>
+            <div class="text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="mb-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
+                    <path d="M15.827007,0C20.406003,0 24.346007,3.1960449 24.346007,9.2930298 24.346007,13.259033 22.542005,17.289001 20.180997,19.791992L20.193005,19.791992C19.287,22.627014 20.736997,23.299011 20.966,23.376038 25.997008,25.090027 31.651002,28.317993 31.651002,31.626038L31.651002,32 0,32 0,31.626038C8.034749E-08,28.414001 5.6260008,25.161011 10.421,23.376038 10.766993,23.244995 12.422999,22.317017 11.497004,19.817993 9.1220035,17.321045 7.3279971,13.275024 7.3279971,9.2930298 7.3279971,3.1960449 11.245006,0 15.827007,0z" />
+                </svg>
+            </div>
+            <h1 class="h3 mb-5 text-center"><strong>Formulir Masuk</strong></h1>
+            <?php if ($login->hasError('form')) : ?>
+                <div class="alert alert-danger">
+                    <?php foreach ($login->getError('form') as $key => $error) {
+                        echo $error . PHP_EOL;
+                    } ?>
                 </div>
-                <h1 class="h3 mb-5 text-center"><strong>Formulir Masuk</strong></h1>
-                <?php if($login->hasError('form')): ?>
-                    <div class="alert alert-danger">
-                        <?php foreach($login->getError('form') as $key => $error){
-                            echo $error . PHP_EOL;
-                        } ?>
-                    </div>
-                <?php endif; ?>
-                <?=$form->input('logincsrf', 'hidden', ['value'=>app()->session()->generateCsrfToken('logincsrf')])?>
-                <?=$form->field('email', 'form-group mb-3')->emailField()?>
-                <?=$form->field('password', 'form-group')->passwordField()?>
-                <p><span class="text-danger mb-5">*</span> : Wajib diisi.</p>
-                <div class="text-right">
-                    <button class="btn btn-lg btn-primary" type="submit">Kirim</button>
-                </div>
-            <?=$form->end()?>
+            <?php endif; ?>
+            <?= $form->input('logincsrf', 'hidden', ['value' => my_app()->session()->generateCsrfToken('logincsrf')]) ?>
+            <div class="form-group mb-3">
+                <label for="email" class="form-label"><?= $login->getLabel('email') ?></label>
+                <?= $form->field('email', ['class' => 'form-control'])->emailField() ?>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password" class="form-label"><?= $login->getLabel('password') ?></label>
+                <?= $form->field('password', ['class' => 'form-control'])->passwordField() ?>
+            </div>
+            <p><span class="text-danger mb-5">*</span> : Wajib diisi.</p>
+            <div class="text-right">
+                <button class="btn btn-lg btn-primary" type="submit">Kirim</button>
+            </div>
+            <?= $form->end() ?>
         </div>
     </div>
 </div>

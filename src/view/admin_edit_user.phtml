@@ -1,11 +1,7 @@
-<?php
-use function PhpWeb\route_to;
-use function PhpWeb\app;
-?>
 <div class="container">
     <div class="row justify-content-end mb-3">
         <div class="col-auto">
-            <a href="<?= route_to('admin_list_user') ?>" class="btn btn-success btn-block p-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
+            <a href="<?= my_route_to('admin_list_user') ?>" class="btn btn-success btn-block p-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-3" fill="currentColor" stroke="none" viewBox="0 0 32 32" focusable="false">
                     <path d="M8.6620483,17.699996L32,17.699996 32,21.116015 8.6620483,21.116015z M2.6040039,16.805007C4.0390015,16.805007 5.2059937,17.97502 5.2059937,19.410996 5.2059937,20.851001 4.0390015,22.006 2.6040039,22.006 1.1640015,22.006 0,20.851001 0,19.410996 0,17.97502 1.1640015,16.805007 2.6040039,16.805007z M8.6620483,8.984993L32,8.984993 32,12.401011 8.6620483,12.401011z M2.6040039,8.0849981C4.0390015,8.0849981 5.2059937,9.2500076 5.2059937,10.690011 5.2059937,12.130015 4.0390015,13.290997 2.6040039,13.290997 1.1640015,13.290997 0,12.130015 0,10.690011 0,9.2500076 1.1640015,8.0849981 2.6040039,8.0849981z M8.6620483,0.82498215L32,0.82498215 32,4.2410006 8.6620483,4.2410006z M2.6040039,0C4.0390015,1.6889317E-08 5.2059937,1.1600046 5.2059937,2.6049824 5.2059937,4.0409884 4.0390015,5.2059979 2.6040039,5.2059979 1.1640015,5.2059979 0,4.0409884 0,2.6049824 0,1.1600046 1.1640015,1.6889317E-08 2.6040039,0z" />
                 </svg>Ke Daftar Pengguna</a>
         </div>
@@ -14,7 +10,7 @@ use function PhpWeb\app;
     <div class="row">
         <div class="col-6 mx-auto">
             <?php $form = $model->form(); ?>
-            <?= $form->begin(route_to('admin_edit_user', ['id'=>$model->id]), 'POST') ?>
+            <?= $form->begin(my_route_to('admin_edit_user', ['id' => $model->id]), 'POST') ?>
             <?php if ($model->hasError('form')) : ?>
                 <div class="alert alert-danger">
                     <?php foreach ($model->getError('form') as $key => $error) {
@@ -22,10 +18,19 @@ use function PhpWeb\app;
                     } ?>
                 </div>
             <?php endif; ?>
-            <?= $form->input('user_csrf', 'hidden', ['value' => app()->session()->generateCsrfToken('user_csrf')]) ?>
-            <?= $form->field('name', 'form-group mb-3') ?>
-            <?= $form->field('email', 'form-group mb-3') ?>
-            <?= $form->field('roles', 'form-group mb-3') ?>
+            <?= $form->input('user_csrf', 'hidden', ['value' => my_app()->session()->generateCsrfToken('user_csrf')]) ?>
+            <div class="form-group mb-3">
+                <label for="name"><?= $model->getLabel('name') ?></label>
+                <?= $form->field('name', ['class'=>'form-control']) ?>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email"><?= $model->getLabel('email') ?></label>
+                <?= $form->field('email', ['class'=>'form-control']) ?>
+            </div>
+            <div class="form-group mb-3">
+                <label for="roles"><?= $model->getLabel('roles') ?></label>
+                <?= $form->field('roles', ['class'=>'form-control']) ?>
+            </div>
 
             <p>Keterangan:<br><span class="text-danger mb-3">*</span> : Wajib diisi.</p>
             <div class="text-right">

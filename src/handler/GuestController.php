@@ -6,24 +6,16 @@ namespace App\Handler;
 
 use App\Model\Guest;
 use App\Model\NewGuestForm;
-use PhpWeb\Http\Session\FlashMessage;
-use PhpWeb\Model\FormModel;
+use Anskh\PhpWeb\Model\FormModel;
 use Laminas\Diactoros\Response\RedirectResponse;
-use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-
-use function PhpWeb\view;
-use function PhpWeb\route_to;
-use function PhpWeb\app;
-use function App\base64_photo;
-use function App\save_base64_photo;
 
 class GuestController
 {
     public function index(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        return view('list_guest', $response, 'main', [
+        return my_view('list_guest', $response, 'layout/main', [
             'title' => 'Bukutamu BPS',
             'data' => Guest::all('id,nama,asal,keperluan,email,hp,tanggal', 0, 'tanggal DESC'),
             'assets' => [
@@ -58,7 +50,7 @@ class GuestController
             'foto' => 'Identitas foto pengunjung'
         ];
 
-        $allow_no_photo = app()->config(Config::ATTR_APP_CONFIG . '.config.guest.allow_no_photo', false);
+        $allow_no_photo = my_config()->get('config.guest.allow_no_photo');
 
         if($allow_no_photo === false){
             $labels['foto'] = 'Identitas foto pengunjung <span class="text-danger">*</span>';
@@ -79,7 +71,7 @@ class GuestController
                 }
 
                 if($model->hasError()){
-                    app()->session()->flash('app_info', 'Terdapat isian yang masih belum valid', FlashMessage::ERROR);
+                    my_app()->session()->flashError('app_info', 'Terdapat isian yang masih belum valid');
                 }else{
                     Guest::create([
                         'nama'=>$model->nama,
@@ -90,12 +82,12 @@ class GuestController
                         'foto'=> $filename,
                         'tanggal' => time()
                     ]);
-                    app()->session()->flash('app_info', 'Data berhasil disimpan', FlashMessage::SUCCESS);
+                    my_app()->session()->flashSuccess('app_info', 'Data berhasil disimpan');
 
-                    return new RedirectResponse(route_to('list_guest'));
+                    return new RedirectResponse(my_route_to('list_guest'));
                 }
             }else{
-                app()->session()->flash('app_info', 'Terdapat isian yang masih belum valid', FlashMessage::ERROR);
+                my_app()->session()->flashError('app_info', 'Terdapat isian yang masih belum valid');
             }
         }
 
@@ -103,7 +95,7 @@ class GuestController
             $model->foto = base64_photo('nophoto.png');
         }
 
-        return view('create_guest', $response, 'main', [
+        return my_view('create_guest', $response, 'layout/main', [
             'title' => 'Bukutamu BPS',
             'model' => $model,
             'assets' => [
@@ -121,7 +113,7 @@ class GuestController
     {
         $id = $request->getAttribute('id');
 
-        return view('view_guest', $response, 'main', [
+        return my_view('view_guest', $response, 'layout/main', [
             'title' => 'Bukutamu BPS',
             'guest' => Guest::getRow($id)
         ]);

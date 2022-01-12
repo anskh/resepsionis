@@ -6,23 +6,18 @@ namespace App\Handler;
 
 use App\Model\Survey;
 use App\Model\SurveyForm;
-use PhpWeb\Http\Session\FlashMessage;
+use Anskh\PhpWeb\Http\Session\FlashMessage;
 use Laminas\Diactoros\Response\RedirectResponse;
-use PhpWeb\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-
-use function PhpWeb\app;
-use function PhpWeb\view;
-use function PhpWeb\route_to;
 
 class SurveyController
 {
     public function create(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        app()->session()->set('survey_token', app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token'));
+        my_app()->session()->set('survey_token', my_config()->get('config.survey.token'));
 
-        return view('create_survey', $response, 'main', [
+        return my_view('create_survey', $response, 'layout/main', [
             'title' => 'Isi Survei Kepuasan Konsumen BPS',
             'assets' => [
                 'style' => '.btn-sq-lg {
@@ -35,8 +30,8 @@ class SurveyController
     }
     public function sangat(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $token = app()->session()->unset('survey_token');
-        if ($token === app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token')) {
+        $token = my_app()->session()->unset('survey_token');
+        if ($token === my_config()->get('config.survey.token')) {
             //simpan
             Survey::create([
                 'selected' => 4,
@@ -44,19 +39,19 @@ class SurveyController
                 'create_at' => time()
             ]);
 
-            app()->session()->flash('feedback_info', 'Terimakasih atas penilaian yang diberikan.', FlashMessage::SUCCESS);
+            my_app()->session()->flashSuccess('feedback_info', 'Terimakasih atas penilaian yang diberikan.');
 
-            return new RedirectResponse(route_to('home'));
+            return new RedirectResponse(my_route_to('home'));
         }else{
-            app()->session()->flash('feedback_info', 'Token survei tidak valid.', FlashMessage::ERROR);
+            my_app()->session()->flashError('feedback_info', 'Token survei tidak valid.');
         }
 
-        return new RedirectResponse(route_to('create_survey'));
+        return new RedirectResponse(my_route_to('create_survey'));
     }
     public function puas(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $token = app()->session()->unset('survey_token');
-        if ($token === app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token')) {
+        $token = my_app()->session()->unset('survey_token');
+        if ($token === my_config()->get('config.survey.token')) {
             //simpan
             Survey::create([
                 'selected' => 3,
@@ -64,14 +59,14 @@ class SurveyController
                 'create_at' => time()
             ]);
 
-            app()->session()->flash('feedback_info', 'Terimakasih atas penilaian yang diberikan.', FlashMessage::SUCCESS);
+            my_app()->session()->flashSuccess('feedback_info', 'Terimakasih atas penilaian yang diberikan.');
 
-            return new RedirectResponse(route_to('home'));
+            return new RedirectResponse(my_route_to('home'));
         }else{
-            app()->session()->flash('feedback_info', 'Token survei tidak valid.', FlashMessage::ERROR);
+            my_app()->session()->flashError('feedback_info', 'Token survei tidak valid.');
         }
 
-        return new RedirectResponse(route_to('create_survey'));
+        return new RedirectResponse(my_route_to('create_survey'));
     }
 
     public function cukup(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -80,8 +75,8 @@ class SurveyController
 
         if ($request->getMethod() === 'POST') {
             if ($model->validateWithRequest($request)) {
-                $token = app()->session()->unset('survey_token');
-                if ($token === app()->config(Config::ATTR_APP_CONFIG . '.config.survey.token')) {
+                $token = my_app()->session()->unset('survey_token');
+                if ($token === my_config()->get('config.survey.token')) {
                     //simpan
                     Survey::create([
                         'selected' => 2,
@@ -89,18 +84,18 @@ class SurveyController
                         'create_at' => time()
                     ]);
 
-                    app()->session()->flash('feedback_info', 'Terimakasih atas penilaian dan feedback yang diberikan.', FlashMessage::SUCCESS);
+                    my_app()->session()->flash('feedback_info', 'Terimakasih atas penilaian dan feedback yang diberikan.', FlashMessage::SUCCESS);
 
-                    return new RedirectResponse(route_to('home'));
+                    return new RedirectResponse(my_route_to('home'));
                 }else{
-                    app()->session()->flash('feedback_info', 'Token survei tidak valid.', FlashMessage::ERROR);
+                    my_app()->session()->flashError('feedback_info', 'Token survei tidak valid.');
 
-                    return new RedirectResponse(route_to('create_survey'));
+                    return new RedirectResponse(my_route_to('create_survey'));
                 }
             }
         }
 
-        return view('feedback_cukup', $response, 'main', [
+        return my_view('feedback_cukup', $response, 'layout/main', [
             'title' => 'Isi Feedback Survei Kepuasan Konsumen BPS',
             'model'=>$model
         ]);
@@ -112,8 +107,8 @@ class SurveyController
 
         if ($request->getMethod() === 'POST') {
             if ($model->validateWithRequest($request)) {
-                $token = app()->session()->unset('survey_token');
-                if ($token === app()->config(Config::ATTR_APP_CONFIG .  '.config.survey.token')) {
+                $token = my_app()->session()->unset('survey_token');
+                if ($token === my_config()->get('config.survey.token')) {
                     //simpan
                     Survey::create([
                         'selected' => 1,
@@ -121,18 +116,18 @@ class SurveyController
                         'create_at' => time()
                     ]);
 
-                    app()->session()->flash('feedback_info', 'Terimakasih atas penilaian dan feedback yang diberikan.', FlashMessage::SUCCESS);
+                    my_app()->session()->flashSuccess('feedback_info', 'Terimakasih atas penilaian dan feedback yang diberikan.');
 
-                    return new RedirectResponse(route_to('home'));
+                    return new RedirectResponse(my_route_to('home'));
                 }else{
-                    app()->session()->flash('feedback_info', 'Token survei tidak valid.', FlashMessage::ERROR);
+                    my_app()->session()->flashError('feedback_info', 'Token survei tidak valid.');
 
-                    return new RedirectResponse(route_to('create_survey'));
+                    return new RedirectResponse(my_route_to('create_survey'));
                 }
             }
         }
 
-        return view('feedback_tidak', $response, 'main', [
+        return my_view('feedback_tidak', $response, 'layout/main', [
             'title' => 'Isi Feedback Survei Kepuasan Konsumen BPS',
             'model'=>$model
         ]);

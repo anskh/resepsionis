@@ -1,14 +1,12 @@
 <?php
 
-use function PhpWeb\route_to;
-use function PhpWeb\app;
-use function App\asset;
+use Anskh\PhpWeb\Http\App;
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title><?= app()->config('application.name') . ' : Kesalahan' ?></title>
+    <title><?= my_app()->getAttribute(App::ATTR_NAME) . ' : Kesalahan' ?></title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,7 +31,7 @@ use function App\asset;
             <div class="container bg-primary">
                 <div class="row justify-content-center py-1">
                     <div class="col-auto">
-                        <a href="<?= route_to('home') ?>" class="navbar-brand d-flex align-items-center btn btn-outline-dark">
+                        <a href="<?= my_route_to('home') ?>" class="navbar-brand d-flex align-items-center btn btn-outline-dark">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" stroke="none" class="mr-3" focusable="false">
                                 <path d="M11.299988,0L16.599976,0 7.0999756,8.8999959 32,8.8999959 32,12.399997 7.0999756,12.399997 16.5,21.299993 16.400024,21.399999 11.299988,21.399999 2.5999756,13.100009 0,10.699985z" />
                             </svg>
@@ -52,7 +50,7 @@ use function App\asset;
 
         <footer class="footer text-center border-top border-primary py-2">
             <div class="container">
-                <span class="text-dark"><?= app()->config('application.name') ?> versi <?= app()->config('application.version') ?> &copy; 2021 - <?= app()->config('application.vendor') ?></span>
+                <span class="text-dark"><?= my_app()->getAttribute(App::ATTR_NAME) ?> versi <?= my_app()->getAttribute(App::ATTR_VERSION) ?> &copy; 2021 - <?= my_app()->getAttribute(App::ATTR_VENDOR) ?></span>
             </div>
         </footer>
     </div>
@@ -65,8 +63,8 @@ use function App\asset;
 
     <script>
         $(document).ready(function() {
-            <?php if (app()->session()->hasFlash()) {
-                foreach (app()->session()->flash() as $flash) {
+            <?php if (my_app()->session()->hasFlash()) {
+                foreach(my_app()->session()->flash() as $flash) {
                     echo $flash;
                 }
             } ?>
